@@ -24,8 +24,12 @@
 //Brand map
 @font-family-sans-serif:                           "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-family-serif:                                Georgia, "Times New Roman", Times, serif;
-@brand-font:                                       "Anderson 1938", @font-family-sans-serif;
-@brand-font-secondary:                             "Interstate Bold Condensed", @font-family-sans-serif;
+@brand-font-primary-name:                          "Sentinel-Book";
+@brand-font-primary-file:                          "Sentinel-Book";
+@brand-font:                                       @brand-font-primary-name, @font-family-sans-serif;
+@brand-font-secondary-name:                        "Interstate Bold Condensed";
+@brand-font-secondary-file:                        "interstateBoldCondensed";
+@brand-font-secondary:                             @brand-font-secondary-name , @font-family-sans-serif;
 @font-family-monospace:                            Menlo, Monaco, Consolas, "Courier New", monospace;
 
 //Implementation
@@ -37,14 +41,58 @@
 //----------------------------------------------------------------------------------------------------------------------
 // Unit-less `line-height` for use in components like buttons.
 @line-height-base:                                  1.5; // 24/16
-
-@headings-line-height-xs:                           64 / 56; //~1.14xxxxx
-@headings-line-height-sm:                           1.2;
-@headings-line-height:                              1.25;
-@headings-line-height-alt:                          1.75;
-
+@line-height-heading:                            24 / 30;
 // Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
 @line-height-computed:                              (@font-size-base * @line-height-base); //rem * line-height ~2.4rem
+
+// core headings
+@line-height-h1:                                    30 / 36;
+@line-height-h1-sm:                                 @line-height-h1;
+@line-height-h1-md:                                 @line-height-h1;
+@line-height-h1-lg:                                 52 / 58;
+
+@line-height-h2:                                    28 / 34;
+@line-height-h2-sm:                                 @line-height-h2;
+@line-height-h2-md:                                 @line-height-h2;
+@line-height-h2-lg:                                 38 / 42;
+
+@line-height-h3:                                    24 / 30;
+@line-height-h4:                                    @line-height-heading;
+@line-height-h5:                                    @line-height-heading;
+@line-height-h6:                                    @line-height-heading;
+
+// announce headings
+@line-height-announce-primary:                      70 / 76;
+@line-height-announce-primary-sm:                   120 / 146;
+@line-height-announce-primary-md:                   @line-height-announce-primary-sm;
+@line-height-announce-primary-lg:                   @line-height-announce-primary-sm;
+
+@line-height-announce-secondary:                    60 / 55;
+@line-height-announce-secondary-sm:                 80 / 75;
+@line-height-announce-secondary-md:                 @line-height-announce-secondary-sm;
+@line-height-announce-secondary-lg:                 100 /120;
+
+// Hero
+@line-height-hero-primary:                          48 /58;
+@line-height-hero-primary-sm:                       68 /76;
+@line-height-hero-primary-md:                       @line-height-hero-primary-sm;
+@line-height-hero-primary-lg:                       90/100;
+
+// Impact headings
+@line-height-impact-h1:                             38 / 42;
+@line-height-impact-h1-sm:                          @line-height-impact-h1;
+@line-height-impact-h1-md:                          @line-height-impact-h1;
+@line-height-impact-h1-lg:                          52 / 58;
+
+@line-height-impact-h2:                             28 / 32;
+@line-height-impact-h2-sm:                          @line-height-impact-h2;
+@line-height-impact-h2-md:                          28 / 42;
+@line-height-impact-h2-lg:                          38 / 42;
+
+@line-height-impact-h3:                             @line-height-h3;
+@line-height-impact-h4:                             1;
+@line-height-impact-h5:                             1;
+@line-height-impact-h6:                             1;
 
 // Size
 //----------------------------------------------------------------------------------------------------------------------
@@ -56,18 +104,58 @@
 @font-size-small:                                   1.2rem;
 
 // Headings
-// These are the mobile-first font-sizes for headers.
-// Non-mobile font adjustments are done in type.less
-@font-size-h1:                                      3.6rem;
-@font-size-h1-lg:                                   5.6rem;
-@font-size-h2:                                      3.0rem;
-@font-size-h2-lg:                                   4.0rem;
+// Core
+@font-size-h1:                                      3rem;
+@font-size-h1-sm:                                   @font-size-h1;
+@font-size-h1-md:                                   @font-size-h1;
+@font-size-h1-lg:                                   5.2rem;
+
+@font-size-h2:                                      2.8rem;
+@font-size-h2-sm:                                   @font-size-h2;
+@font-size-h2-md:                                   @font-size-h2;
+@font-size-h2-lg:                                   3.8rem;
+
 @font-size-h3:                                      2.4rem;
+@font-size-h4:                                      @font-size-large;
+@font-size-h5:                                      @font-size-large;
+@font-size-h6:                                      @font-size-large;
+
+// Announce
+@font-size-announce-primary:                        7.0rem;
+@font-size-announce-primary-sm:                     12rem;
+@font-size-announce-primary-md:                     @font-size-announce-primary-sm;
+@font-size-announce-primary-lg:                     @font-size-announce-primary-sm;
+
+@font-size-announce-secondary:                      6rem;
+@font-size-announce-secondary-sm:                   8rem;
+@font-size-announce-secondary-md:                   @font-size-announce-secondary-sm;
+@font-size-announce-secondary-lg:                   10rem;
+
+// Hero
+@font-size-hero-primary:                            4.8rem;
+@font-size-hero-primary-sm:                         6.8rem;
+@font-size-hero-primary-md:                         @font-size-hero-primary-sm;
+@font-size-hero-primary-lg:                         9rem;
+
+// Impact
+@font-size-impact-h1:                               3.8rem;
+@font-size-impact-h1-sm:                            @font-size-impact-h1;
+@font-size-impact-h1-md:                            @font-size-impact-h1;
+@font-size-impact-h1-lg:                            5.2rem;
+
+@font-size-impact-h2:                               @font-size-h2;
+@font-size-impact-h2-sm:                            @font-size-h2;
+@font-size-impact-h2-md:                            @font-size-h2;
+@font-size-impact-h2-lg:                            @font-size-h2-lg;
+
+@font-size-impact-h3:                               @font-size-h3;
+@font-size-impact-h4:                               @font-size-h4;
+@font-size-impact-h5:                               @font-size-h5;
+@font-size-impact-h6:                               @font-size-h6;
+
+
 
 // Weight
 //----------------------------------------------------------------------------------------------------------------------
 @headings-font-weight:                              normal; // Matches font family definition
 
-// Path
-//----------------------------------------------------------------------------------------------------------------------
-@headings-font-path:                                "/font/";
