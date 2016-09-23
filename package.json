@@ -17,14 +17,12 @@
   "urls": {
     "repo": "https://github.com/rei/rei-cedar"
   },
-  "less": "less/bootstrap.less",
   "repository": {
     "type": "git",
     "url": "git@github.com:rei/rei-cedar.git"
   },
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "^3.3.6",
     "jquery": "2.2.4",
     "normalize.css": "^3.0.3"
   },
