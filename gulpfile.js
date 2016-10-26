@@ -45,6 +45,9 @@ var globify = require( 'require-globify' );
 var bourbon = require( 'node-bourbon' );
 var browserSync = require( 'browser-sync' ).create();
 
+var requireDir = require('require-dir');
+requireDir('./gulp-tasks');
+
 
 //       /$$$$$$                       /$$$$$$  /$$
 //      /$$__  $$                     /$$__  $$|__/
@@ -143,7 +146,7 @@ gulp.task( 'default', [ 'master' ] );
 gulp.task( 'css', [ 'css:minify' ] );
 
 // --[ Javascript ]-------------------------------------------------------------
-gulp.task( 'js', [ 'js:build' ] );
+gulp.task( 'js' );
 
 // --[ Docs ]-------------------------------------------------------------------
 gulp.task( 'docs:clean', [
@@ -206,96 +209,6 @@ gulp.task( 'accessibility:audit-exp', [
 // * Finally call the callback function
 gulp.task( 'master', callback =>
     runSequence( [ 'js', 'css' ], 'docs', callback )
-);
-
-//       /$$$$$$   /$$$$$$   /$$$$$$
-//      /$$__  $$ /$$__  $$ /$$__  $$
-//     | $$  \__/| $$  \__/| $$  \__/
-//     | $$      |  $$$$$$ |  $$$$$$
-//     | $$       \____  $$ \____  $$
-//     | $$    $$ /$$  \ $$ /$$  \ $$
-//     |  $$$$$$/|  $$$$$$/|  $$$$$$/
-//      \______/  \______/  \______/
-//
-//
-//
-
-// CSS:Clean
-gulp.task( 'css:clean', () => del( [ path.join( PATHS.DIST, '**/*.css' ) ] ) );
-
-// Compile the UI framework's Less --> ./dist.
-gulp.task( 'css:build', [ 'css:clean' ], () => {
-
-    const lessc = less( {
-        paths: [ PATHS.LESS ]
-    } ).on( 'error', err => {
-        console.log( 'There was a problem compiling the LESS files...' );
-        throw new Error( err );
-    } ); // Break on less compile errors
-
-    const lintLessReporter = cssLintLessReporter().on( 'error', err => {
-        // TODO: decide whether to throw the error
-        if ( SHOULD_STOP_FOR_LINT_FAILURE ) {
-            throw new Error( err );
-        }
-    } );
-
-    return gulp.src( path.join( PATHS.SRC, '/less/main.less' ) )
-        .pipe( sourcemaps.init() )
-        .pipe( rename( {
-            basename: pkg.name
-        } ) ) // Rename the bundle basename to $PROJECT_NAME-$VERSION
-        .pipe( lessc ) // Build the dev bundle
-        .pipe( csslint() )
-        .pipe( lintLessReporter )
-        .pipe( csscomb() )
-        .pipe( postcss( [ autoprefixer( {
-            browsers: [ 'last 2 versions' ]
-        } ) ] ) )
-        .pipe( sourcemaps.write() )
-        .pipe( gulp.dest( PATHS.DIST ) );
-} );
-
-// minify the css
-gulp.task( 'css:minify', [ 'css:build' ], () =>
-    gulp.src( path.join( PATHS.DIST, '/rei-cedar.css' ) )
-    .pipe( rename( {
-        suffix: '.min'
-    } ) ) // Build the minified bundle
-    .pipe( minifyCss() )
-    .pipe( gulp.dest( PATHS.DIST ) )
-);
-
-//         /$$$$$                                                             /$$             /$$
-//        |__  $$                                                            |__/            | $$
-//           | $$  /$$$$$$  /$$    /$$ /$$$$$$   /$$$$$$$  /$$$$$$$  /$$$$$$  /$$  /$$$$$$  /$$$$$$
-//           | $$ |____  $$|  $$  /$$/|____  $$ /$$_____/ /$$_____/ /$$__  $$| $$ /$$__  $$|_  $$_/
-//      /$$  | $$  /$$$$$$$ \  $$/$$/  /$$$$$$$|  $$$$$$ | $$      | $$  \__/| $$| $$  \ $$  | $$
-//     | $$  | $$ /$$__  $$  \  $$$/  /$$__  $$ \____  $$| $$      | $$      | $$| $$  | $$  | $$ /$$
-//     |  $$$$$$/|  $$$$$$$   \  $/  |  $$$$$$$ /$$$$$$$/|  $$$$$$$| $$      | $$| $$$$$$$/  |  $$$$/
-//      \______/  \_______/    \_/    \_______/|_______/  \_______/|__/      |__/| $$____/    \___/
-//                                                                               | $$
-//                                                                               | $$
-//                                                                               |__/
-
-// Compile the UI framework's Javascript --> ./dist. Include the minified version.
-gulp.task( 'js:build', [], () =>
-    browserify( PATHS.SRC + '/js/main.js' ).bundle()
-    .pipe( source( PATHS.SRC + '/js/main.js' ) )
-    .pipe( streamify( sourcemaps.init() ) )
-    .pipe( rename( {
-        dirname: '/',
-        basename: 'rei-cedar'
-    } ) )
-    .pipe( streamify( sourcemaps.write() ) )
-    .pipe( gulp.dest( PATHS.DIST ) )
-    .pipe( rename( {
-        dirname: '/',
-        basename: 'rei-cedar',
-        suffix: '.min'
-    } ) )
-    .pipe( streamify( uglify() ) )
-    .pipe( gulp.dest( PATHS.DIST ) )
 );
 
 //      /$$$$$$$
