@@ -1,20 +1,51 @@
-var gulp = require( 'gulp' );
+// var gulp = require( 'gulp' );
 
-gulp.task( 'js', [], () =>
-    browserify( PATHS.SRC + '/js/main.js' ).bundle()
-    .pipe( source( PATHS.SRC + '/js/main.js' ) )
-    .pipe( streamify( sourcemaps.init() ) )
-    .pipe( rename( {
-        dirname: '/',
-        basename: 'rei-cedar'
-    } ) )
-    .pipe( streamify( sourcemaps.write() ) )
-    .pipe( gulp.dest( PATHS.DIST ) )
-    .pipe( rename( {
-        dirname: '/',
-        basename: 'rei-cedar',
-        suffix: '.min'
-    } ) )
-    .pipe( streamify( uglify() ) )
-    .pipe( gulp.dest( PATHS.DIST ) )
-);
+// // Browserify individual components for test
+// gulp.task( 'js:test:browserify-single-components', [ 'js:test:copy' ], done => {
+
+//     gulp.src( [ path.join( PATHS.TEST, '/tmp/js/tests/*.js' ), path.join( PATHS.TEST, '/tmp/js/tests/unit/*.js' ) ], ( err, files ) => {
+//         if ( err ) done( err );
+
+//         // browserify all of the files async
+//         let tasks = files.map(
+//             file => browserify( {
+//                 entries: [ file ]
+//             } ).bundle()
+//             .pipe( source( file ) )
+//             .pipe( gulp.dest( '' ) )
+//         );
+
+//         // Merge the streams
+//         es.merge( tasks )
+//             .on( 'end', done );
+//     } )
+// } );
+
+// // Inject files into js/tests/index.html for testing
+// gulp.task( 'js:test:inject', [ 'js:test:browserify-single-components' ], () =>
+//     gulp.src( path.join( PATHS.TEST, '/tmp/js/tests/index.html' ) )
+//     // Get all test files and inject into index.html
+//     .pipe( inject( gulp.src( [ path.join( PATHS.TEST, '/tmp/js/tests/unit/*.js' ) ], {
+//         read: false
+//     } ), {
+//         name: 'tests',
+//         relative: true
+//     } ) )
+//     .pipe( gulp.dest( path.join( PATHS.TEST, '/tmp/js/tests' ) ) )
+// );
+
+// // Qunit test the components
+// gulp.task( 'js:test:qunit', [ 'js:test:inject' ], () =>
+//     gulp.src( path.join( PATHS.TEST, '/tmp/js/tests/index.html' ) )
+//     .pipe( qunit( {
+//         'timeout': 20
+//     } ) )
+// );
+
+// // js:clean
+// // Before clean/deletion, qunit is run to ensure new files will be written.
+// gulp.task( 'js:clean', [ 'js:test:qunit' ], () => del( [ path.join( PATHS.DIST, '**/*.js' ) ] ) );
+
+// // js:post-clean-test
+// gulp.task( 'js:test:post-clean', [ 'js:test:qunit' ], () => del( [ path.join( PATHS.TEST, '/tmp/js/*' ) ] ) );
+
