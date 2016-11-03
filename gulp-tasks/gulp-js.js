@@ -9,7 +9,7 @@ var uglify = require( 'gulp-uglify' );
 
 var PATHS = {
     SRC: path.join( __dirname, '../src' ),
-    DIST: path.join( __dirname, 'dist' ),
+    DIST: path.join( __dirname, '../dist' ),
     DOCS_SRC: path.join( __dirname, 'docs_src' ),
     DOCS_DIST: path.join( __dirname, 'docs_dist' ),
     DOCS_TEMPLATES: path.join( __dirname, 'docs_src', '_includes', 'markup-templates' ),

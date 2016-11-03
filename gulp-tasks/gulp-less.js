@@ -14,7 +14,7 @@ var minifyCss = require( 'gulp-cssnano' );
 
 var PATHS = {
     SRC: path.join( __dirname, 'src' ),
-    DIST: path.join( __dirname, 'dist' ),
+    DIST: path.join( __dirname, '../dist' ),
     DOCS_SRC: path.join( __dirname, 'docs_src' ),
     DOCS_DIST: path.join( __dirname, 'docs_dist' ),
     DOCS_TEMPLATES: path.join( __dirname, 'docs_src', '_includes', 'markup-templates' ), // Docs templates directory
@@ -24,17 +24,19 @@ var PATHS = {
 
 gulp.task( 'css', () => {
 
-    del( [ path.join( '../docs_dist', '**/*.css' ) ] )
+    del( [ path.join( '../docs_dist', '**/*.css' ) ] );
+    del( [ path.join( '../dist', '**/*.css' ) ] );
+    del( [ path.join( '../docs_dist', '**/*.js' ) ] );
+    del( [ path.join( '../dist', '**/*.js' ) ] );
 
     const lessc = less( {
         paths: [ '../node_modules' ]
     } ).on( 'error', err => {
         console.log( 'There was a problem compiling the LESS files...' );
         throw new Error( err );
-    } ); // Break on less compile errors
+    } );
 
     const lintLessReporter = cssLintLessReporter().on( 'error', err => {
-        // TODO: decide whether to throw the error
         if ( SHOULD_STOP_FOR_LINT_FAILURE ) {
             throw new Error( err );
         }
@@ -45,7 +47,7 @@ gulp.task( 'css', () => {
         .pipe( rename( {
             basename: pkg.name
         } ) ) // Rename the bundle basename to $PROJECT_NAME-$VERSION
-        .pipe( lessc ) // Build the dev bundle
+        .pipe( lessc )
         .pipe( csslint() )
         .pipe( lintLessReporter )
         .pipe( csscomb() )
@@ -56,12 +58,11 @@ gulp.task( 'css', () => {
         .pipe( gulp.dest( PATHS.DIST ) );
 } );
 
-// minify the css
-gulp.task( 'css:minify', [ 'css:build' ], () =>
+gulp.task( 'minifyCSS', () =>
     gulp.src( path.join( PATHS.DIST, '/rei-cedar.css' ) )
     .pipe( rename( {
         suffix: '.min'
-    } ) ) // Build the minified bundle
+    } ) )
     .pipe( minifyCss() )
     .pipe( gulp.dest( PATHS.DIST ) )
 );

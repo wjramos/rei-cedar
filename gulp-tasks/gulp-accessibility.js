@@ -5,36 +5,27 @@ var pkg = require( '../package.json' );
 var A11Y_OPTIONS = pkg.a11y;
 var PA11Y_OPTIONS = pkg.pa11y;
 
-gulp.task( 'accessibility:audit', [
-    'accessibility:audit-templates',
-    'accessibility:audit-docs'
-] );
+// var PATHS = {
+//     SRC: path.join( __dirname, '../src' ),
+//     DIST: path.join( __dirname, 'dist' ),
+//     DOCS_SRC: path.join( __dirname, 'docs_src' ),
+//     DOCS_DIST: path.join( __dirname, '../docs_dist' ),
+//     DOCS_TEMPLATES: path.join( __dirname, 'docs_src', '_includes', 'markup-templates' ),
+//     LESS: path.join( __dirname, 'node_modules' ), 
+//     TEST: path.join( __dirname, 'test' ), 
+// };
 
 // Audit all experimental accessibility
-gulp.task( 'accessibility:audit-exp', [
-    'accessibility:audit-pa11y'
-] );
-
-// Audit templates before they are compiled. This task has the fastest feedback
-// loop
-gulp.task( 'accessibility:audit-templates', () =>
-    gulp.src( path.join( PATHS.DOCS_TEMPLATES, '**', '*.html' ) )
-    .pipe( a11y( A11Y_OPTIONS ) )
-    .pipe( a11y.reporter() )
-);
+gulp.task( 'accessibility', () => pa11y( PA11Y_OPTIONS )() );
 
 // Audit compiled docs. This task is slower, but will cover more. It can give
 // color recommendations.
-gulp.task( 'accessibility:audit-docs', [ 'docs' ], () =>
-    gulp.src( path.join( PATHS.DOCS_DIST, 'components', 'index.html' ) )
-    .pipe( a11y( A11Y_OPTIONS ) )
-    .pipe( a11y.reporter() )
-);
+// gulp.task( 'accessibility:audit-docs', [ 'docs' ], () =>
+//     gulp.src( path.join( PATHS.DOCS_DIST, 'components', 'index.html' ) )
+//     .pipe( a11y( A11Y_OPTIONS ) )
+//     .pipe( a11y.reporter() )
+// );
 
 // --[ Accessibility Audits - EXPERIMENTAL ]------------------------------------
 // Audit using pa11y.
-gulp.task( 'accessibility:audit-pa11y', () => pa11y( PA11Y_OPTIONS )() );
-
-gulp.task( 'browserSync-watch', [ 'compile-riot' ], () => {
-    browserSync.reload();
-} );
+// gulp.task( 'accessibility:audit-pa11y', () => pa11y( PA11Y_OPTIONS )() );
