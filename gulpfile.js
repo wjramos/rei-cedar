@@ -43,28 +43,4 @@ var PATHS = {
     TEST: path.join( __dirname, 'test' ), 
 };
 
-gulp.task( 'default', ['js', 'css']);
-
-gulp.task( 'docs:clean', [
-    'docs:clean-dist',
-    'docs:clean-copied-from-src',
-    'docs:clean-copied-package',
-    'docs:clean-copied-less'
-] );
-
-gulp.task( 'docs:copy-all', [
-    'docs:copy-css',
-    'docs:copy-js',
-    'docs:copy-package',
-    'docs:copy-less'
-] );
-
-gulp.task( 'docs', [
-    'docs:autoprefixer-css',
-    'docs:autoprefixer-examples',
-    'docs:csscomb-css',
-    'docs:csscomb-examples',
-    'docs:cssmin-css',
-    'docs:jekyll'
-] );
-
+gulp.task( 'default', ['js', 'css', 'minifyCSS', 'docs'] );
