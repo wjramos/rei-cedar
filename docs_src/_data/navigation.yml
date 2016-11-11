@@ -94,9 +94,6 @@ items:
                 - label: Media object
                   href: media
 
-                - label: Panels
-                  href: panels
-
             - label: Groups
               slug: groups
               href: /layouts/groups/
@@ -435,8 +432,8 @@ items:
                 - label: Responsive tables
                   href: tables-responsive
 
-                - label: Panels
-                  href: panels
+                - label: Tiles
+                  href: tiles
 
     - label: Modules
       slug: modules

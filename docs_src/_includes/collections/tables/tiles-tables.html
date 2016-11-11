@@ -1,13 +1,13 @@
 <section class="vertical-push-3">
-  <h2 id="panels" class="page-header">Panels</h2>
-  <h3 id="panels-tables" class="status status-chat">With tables</h3>
-  <p>Add any non-bordered <code>.table</code> within a panel for a seamless design. If there is a <code>.panel-body</code>, we add an extra border to the top of the table for separation.</p>
+  <h2 id="tiles" class="page-header">Tiles</h2>
+  <h3 id="tiles-tables" class="status status-chat">With tables</h3>
+  <p>Add any non-bordered <code>.table</code> within a tile for a seamless design. If there is a <code>.tile</code>, we add an extra border to the top of the table for separation.</p>
   <div class="well" data-example-id="table-within-panel">
-    <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">Panel heading</div>
-      <div class="panel-body">
-        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+    <div class="tile">
+      <!-- Default tile contents -->
+      <div class="tile-block" data-theme="light-20">Tile heading</div>
+      <div class="tile tile-block">
+        <p>Some default tile content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
       </div>
 
       <!-- Table -->
@@ -44,10 +44,10 @@
     </div>
   </div>
   {% highlight html %}
-  <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Panel heading</div>
-    <div class="panel-body">
+  <div class="tile">
+    <!-- Default tile contents -->
+    <div class="tile-block" data-theme="light-20">Tile heading</div>
+    <div class="tile title-block">
       <p>...</p>
     </div>
 
@@ -58,11 +58,11 @@
   </div>
   {% endhighlight %}
 
-  <p>If there is no panel body, the component moves from panel header to table without interruption.</p>
+  <p>If there is no tile body, the component moves from tile header to table without interruption.</p>
   <div class="well" data-example-id="panel-without-body-with-table">
-    <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">Panel heading</div>
+    <div class="tile">
+      <!-- Default tile contents -->
+      <div class="tile-block" data-theme="light-20">Tile heading</div>
 
       <!-- Table -->
       <table class="table">
@@ -98,9 +98,9 @@
     </div>
   </div>
   {% highlight html %}
-  <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Panel heading</div>
+  <div class="tile">
+    <!-- Default tile contents -->
+    <div class="tile-block" data-theme="light-20">Tile heading</div>
 
     <!-- Table -->
     <table class="table">
