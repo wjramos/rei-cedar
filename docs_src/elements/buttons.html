@@ -6,6 +6,93 @@ lead: "Buttons, buttons, and more buttons - all sizes, states, and statuses (and
 ---
 <!-- css/buttons.html content -->
 
+<div id="app">
+    <modal :show="showModal" v-if="showModal" @close="showModal = false">
+        <h1>MODAL</h1>
+        <p><a href="">focus 1</a></p>
+        <p><a href="">focus 2</a></p>
+        <button @click="showModal = false">Close</button>
+    </modal>
+    <button @click="showModal=true">Show Modal</button>
+</div>
+
+<!-- template for the Modal component -->
+<script type="x-template" id="modal-template">
+<div>
+    <div class="modal-backdrop in" tabindex="-1"></div>
+    <transition name="modal">
+        <div class="modal" style="display:block;" tabindex="-1" role="dialog" @click.stop.self="$emit('close')">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </transition>
+</div>
+</script>
+<script>
+Vue.component('Modal', {
+    template: '#modal-template',
+    props: {
+        show: {
+            type: Boolean,
+            required: true
+        }
+    },
+    created: function () {
+        var that = this;
+        // prevent body scrolling
+        $('body').addClass('modal-open');
+        // close with esc
+        document.addEventListener('keyup', function (e) {
+            if (e.keyCode === 27) {
+                that.$emit('close');
+            }
+        });
+    },
+    mounted: function () {
+        var $el = $(this.$el).find('.modal')[0];
+        //store button that launched modal for restoring focus later when destroyed
+        this.launcher = $(document.activeElement);
+
+        $el.focus();
+
+        // trap tab in modal dialog
+        $el.addEventListener('keydown', function (e) {
+            if (e.keyCode ===9) {
+                var children = $($el).find('*');
+                var focusableElementsString = "a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]";
+                var focusableItems = children.filter(focusableElementsString).filter(':visible');
+                var focusedItem = $(document.activeElement);
+                var numberOfFocusableItems = focusableItems.length;
+                var focusedItemIndex = focusableItems.index(focusedItem);
+
+                if ( !event.shiftKey && (focusedItemIndex == numberOfFocusableItems - 1) ){
+                    focusableItems.get(0).focus();
+                    event.preventDefault();
+                }
+                if ( event.shiftKey && focusedItemIndex === 0 ){
+                    focusableItems.get(numberOfFocusableItems - 1).focus();
+                    event.preventDefault();
+                }
+            }
+        });
+    },
+    destroyed: function () {
+        //restore focus to what launched the modal
+        this.launcher.focus();
+    }
+});
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        showModal: false
+    }
+});
+</script>
+
 {% include elements/buttons/families-themes.html %}
 {% include elements/buttons/pairing.html %}
 {% include elements/buttons/general.html %}

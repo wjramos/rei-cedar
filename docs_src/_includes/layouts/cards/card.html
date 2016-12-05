@@ -3,27 +3,6 @@
 <p>Cards support a wide variety of content, including images, text, list groups, links, and more. Mix and match multiple content types to create the card you need.</p>
 <h2>Examples</h2>
 
-
-<div id="app">
-    <test-component></test-component>
-</div>
-
-<script>
-    Vue.component('test-component', {
-        template: '<div>test <%message%></div>',
-        delimiters: ['<%','%>'],
-        data: function() {
-          return {
-            message: 'AKJSHDKJASH'
-          };
-        }
-    });
-
-    new Vue({
-      el: '#app',
-
-    });
-</script>
 <article class="card vertical-push-lg">
     <section class="card-block card-block--top" data-theme="light-20">
         <h3 class="h4">Card orginization</h3>
