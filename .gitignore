@@ -44,6 +44,7 @@ node_modules
 # Build directories and files
 dist
 target
+scss_out
 
 # docs_src ignores
 docs_src/assets/css/*.min.css

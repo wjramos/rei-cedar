@@ -1,4 +1,4 @@
-'use strict'; 
+'use strict';
 
 //      /$$$$$$$                                /$$
 //     | $$__  $$                              |__/
@@ -17,6 +17,7 @@
  */
 var path = require( 'path' );
 var gulp = require( 'gulp' );
+var sass = require( 'gulp-sass' );
 var less = require( 'gulp-less' );
 var rename = require( 'gulp-rename' );
 var minifyCss = require( 'gulp-cssnano' );
@@ -254,6 +255,19 @@ gulp.task( 'css:build', [ 'css:clean' ], () => {
         } ) ] ) )
         .pipe( sourcemaps.write() )
         .pipe( gulp.dest( PATHS.DIST ) );
+} );
+
+// SCSS compiling
+// TODO: make it work with correct paths
+gulp.task( 'sass', function () {
+    return gulp.src( './src/scss/**/*.scss' )
+        .pipe( sourcemaps.init() )
+        .pipe( sass().on( 'error', sass.logError ) )
+        .pipe( postcss( [ autoprefixer( {
+            browsers: [ 'last 2 versions' ]
+        } ) ] ) )
+        .pipe( sourcemaps.write() )
+        .pipe( gulp.dest( './scss_out' ) );
 } );
 
 // minify the css
