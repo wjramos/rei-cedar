@@ -53,7 +53,8 @@ Vue.component('Modal', {
     },
     mounted: function () {
         var $el = $(this.$el).find('.modal')[0];
-        //store button that launched modal for restoring focus later when destroyed
+        // store button that launched modal for restoring focus later when
+        // destroyed (whatever is currently focused so it may need work)
         this.launcher = $(document.activeElement);
 
         $el.focus();
@@ -67,9 +68,7 @@ Vue.component('Modal', {
                 var focusedItem = $(document.activeElement);
                 var numberOfFocusableItems = focusableItems.length;
                 var focusedItemIndex = focusableItems.index(focusedItem);
-
-                console.log(focusedItemIndex);
-
+                
                 if ( !e.shiftKey && (focusedItemIndex == numberOfFocusableItems - 1) ){
                     focusableItems.get(0).focus();
                     event.preventDefault();
