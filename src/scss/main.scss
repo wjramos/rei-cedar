@@ -1,8 +1,15 @@
+// Variable overrides
+// NOTE: Make changes to variables in this file rather than modifying
+// global_vars and uncomment the line below
+// @import "overrides/overrides";
+
 // Utility mixins
 @import "utils";
 
 // Variables
-@import "variables";
+// NOTE: Any changes/additions/removal of variables in these files
+// should be updated in overrides as well
+@import "global_vars";
 
 // General styles
 @import "base";

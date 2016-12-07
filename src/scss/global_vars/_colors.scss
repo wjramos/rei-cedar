@@ -1,12 +1,8 @@
 // Define color palette
 $cedar-palette: (
-primary: #1779ba,
-secondary: #767676,
+  primary: #1779ba,
+  secondary: #767676,
 ) !default;
-
-@if not map-has-key($cedar-palette, primary) {
-  @error 'In $cedar-palette, you must have a color named "primary".';
-}
 
 // Set color variables
 $primary-color: map-get($cedar-palette, primary);
