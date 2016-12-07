@@ -1,2 +1,8 @@
-// @import "utils/main";
-@import "globals";
+// Utility mixins
+@import "utils/main";
+
+// Variables
+@import "variables/main";
+
+// General styles
+@import "base";
