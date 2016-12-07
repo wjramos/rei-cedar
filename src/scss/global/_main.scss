@@ -1,0 +1,12 @@
+@import "colors";
+
+@import "base";
+@mixin cedar-global-styles {
+  @include global-base;
+}
+
+@import "typography";
+// Building all typography
+@mixin cedar-typography {
+  @include header-base;
+}

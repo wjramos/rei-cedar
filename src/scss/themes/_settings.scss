@@ -2,6 +2,7 @@
 //
 //   1. Global
 //   2. Breakpoints
+//   3. Base Typography
 
 @import '../utils';
 
@@ -29,9 +30,38 @@ $global-radius: 0;
 // --------------
 
 $mq-breakpoints: (
-  small: 0,
+  small: 0px,
   medium: 640px,
   large: 1024px,
   xlarge: 1200px,
   xxlarge: 1440px,
+);
+
+// 3. Base Typography
+// ------------------
+$header-font-family: $body-font-family;
+$header-font-weight: $global-weight-normal;
+$header-font-style: normal; // e.g. italic
+$header-color: inherit;
+$header-lineheight: 1.4;
+$header-margin-bottom: 0.5rem;
+$header-text-rendering: optimizeLegibility;
+
+$header-styles: (
+  small: (
+    'h1': ('font-size': 24),
+    'h2': ('font-size': 20),
+    'h3': ('font-size': 19),
+    'h4': ('font-size': 18),
+    'h5': ('font-size': 17),
+    'h6': ('font-size': 16)
+  ),
+  medium: (
+    'h1': ('font-size': 48),
+    'h2': ('font-size': 40),
+    'h3': ('font-size': 31),
+    'h4': ('font-size': 25),
+    'h5': ('font-size': 20),
+    'h6': ('font-size': 16)
+  ),
 );

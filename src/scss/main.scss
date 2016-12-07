@@ -4,12 +4,13 @@
 // @import "themes/settings";
 
 // Utility mixins
-@import "utils";
+@import "utils/main";
 
-// Variables
 // NOTE: Any changes/additions/removal of variables in these files
 // should be updated in theme settings as well
-@import "global_vars";
+@import "global/main";
 
-// General styles
-@import "base";
+
+// Use mixins here for easy source order control
+@include cedar-global-styles;
+@include cedar-typography;
