@@ -11,7 +11,8 @@ $header-lineheight: 1.4 !default;
 $header-margin-bottom: 0.5rem !default;
 $header-text-rendering: optimizeLegibility !default;
 
-/// Styles for headings at various screen sizes. Each key is a breakpoint, and each value is a map of heading styles.
+// Styles for headings at various screen sizes. Each key is a breakpoint, and each value is a map of heading styles.
+// NOTE: size key names are mapped from $mq-breakpoints
 $header-styles: (
   small: (
     'h1': ('font-size': 24),
@@ -48,43 +49,38 @@ $header-styles: (
 
   // Heading styles
   @each $size, $headers in $header-styles {
-    @include mq($size) {
-      @each $header, $header-defs in $headers {
-        $font-size-temp: 1rem;
-        #{$header} {
+    @if $size != $zero-breakpoint {
+      @include mq($size) {
+        @include build-mapped-styles($headers);
+      }
+    } @else {
+      @include build-mapped-styles($headers);
+    }
+  }
+}
 
-          @if map-has-key($header-defs, font-size) {
-            $font-size-temp: rem-calc(map-get($header-defs, font-size));
-            font-size: $font-size-temp;
-          } @else if map-has-key($header-defs, fs) {
-            $font-size-temp: rem-calc(map-get($header-defs, fs));
-            font-size: $font-size-temp;
-          } @else if $size == $zero-breakpoint {
-            font-size: $font-size-temp;
-          }
-          @if map-has-key($header-defs, line-height) {
-            line-height: unitless-calc(map-get($header-defs, line-height), $font-size-temp);
-          } @else if map-has-key($header-defs, lh) {
-            line-height: unitless-calc(map-get($header-defs, lh), $font-size-temp);
-          } @else if $size == $zero-breakpoint {
-            line-height: unitless-calc($header-lineheight, $font-size-temp);
-          }
+// Mixin for generating styles from header map definitions
+@mixin build-mapped-styles($headers) {
+  $result: '';
+  @each $header, $header-defs in $headers {
+    $font-size-temp: 1rem;
+    #{$header} {
 
-          @if map-has-key($header-defs, margin-top) {
-            margin-top: rem-calc(map-get($header-defs, margin-top));
-          } @else if map-has-key($header-defs, mt) {
-            margin-top: rem-calc(map-get($header-defs, mt));
-          } @else if $size == $zero-breakpoint {
-            margin-top: 0;
-          }
-          @if map-has-key($header-defs, margin-bottom) {
-            margin-bottom: rem-calc(map-get($header-defs, margin-bottom));
-          } @else if map-has-key($header-defs, mb) {
-            margin-bottom: rem-calc(map-get($header-defs, mb));
-          } @else if $size == $zero-breakpoint {
-            margin-bottom: rem-calc($header-margin-bottom);
-          }
-        }
+      @if map-has-key($header-defs, font-size) {
+        $font-size-temp: rem-calc(map-get($header-defs, font-size));
+        font-size: $font-size-temp;
+      }
+
+      @if map-has-key($header-defs, line-height) {
+        line-height: unitless-calc(map-get($header-defs, line-height), $font-size-temp);
+      }
+
+      @if map-has-key($header-defs, margin-top) {
+        margin-top: rem-calc(map-get($header-defs, margin-top));
+      }
+
+      @if map-has-key($header-defs, margin-bottom) {
+        margin-bottom: rem-calc(map-get($header-defs, margin-bottom));
       }
     }
   }
