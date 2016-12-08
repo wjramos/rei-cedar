@@ -7,7 +7,3 @@ $cedar-palette: (
 // Set color variables
 $primary-color: map-get($cedar-palette, primary);
 $secondary-color: map-get($cedar-palette, secondary);
-
-// Global color definitions
-$body-background: #fff !default;
-$body-font-color: #000 !default;

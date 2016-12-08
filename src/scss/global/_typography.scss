@@ -49,6 +49,7 @@ $header-styles: (
 
   // Heading styles
   @each $size, $headers in $header-styles {
+    //only make a media query for things above small
     @if $size != $zero-breakpoint {
       @include mq($size) {
         @include build-mapped-styles($headers);

@@ -1,7 +1,8 @@
 @import "colors";
 
 @import "base";
-@mixin cedar-global-styles {
+// Building all base styles
+@mixin cedar-base-styles {
   @include global-base;
 }
 
