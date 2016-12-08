@@ -1,0 +1,14 @@
+{
+  "props": {
+    "header_color": {
+      "value":"#ff0000",
+      "type":"color",
+      "category":"text-colors"
+    },
+    "header_font": {
+      "value":"Roboto",
+      "type":"font",
+      "category":"font"
+    }
+  }
+}

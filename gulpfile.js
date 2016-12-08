@@ -45,6 +45,7 @@ var pkg = require( './package.json' );
 var globify = require( 'require-globify' );
 var bourbon = require( 'node-bourbon' );
 var browserSync = require( 'browser-sync' ).create();
+var theo = require( 'theo' );
 
 
 //       /$$$$$$                       /$$$$$$  /$$
@@ -258,7 +259,7 @@ gulp.task( 'css:build', [ 'css:clean' ], () => {
 } );
 
 // SCSS compiling
-// TODO: make it work with correct paths
+// TODO: make it work with correct paths after PoC
 gulp.task( 'sass', function () {
     return gulp.src( './src/scss/**/*.scss' )
         .pipe( sourcemaps.init() )
@@ -269,6 +270,15 @@ gulp.task( 'sass', function () {
         .pipe( sourcemaps.write() )
         .pipe( gulp.dest( './scss_out' ) );
 } );
+// Theo stuff
+// TODO: make it work with real paths after PoC
+gulp.task( 'theo', function () {
+    gulp.src( './src/design/props.json' )
+        .pipe( theo.plugins.transform( 'web' ) )
+        .pipe( theo.plugins.format( 'scss' ) )
+        .pipe( gulp.dest( './src/scss/design/_tokens.scss' ) );
+} );
+
 
 // minify the css
 gulp.task( 'css:minify', [ 'css:build' ], () =>
