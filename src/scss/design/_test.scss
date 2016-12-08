@@ -1,0 +1,9 @@
+@import "headings.map.scss";
+
+@each $variant, $defs in $headings-map {
+  .#{$variant} {
+    @each $attr, $value in $defs {
+      #{$attr}: #{$value};
+    }
+  }
+}

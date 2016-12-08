@@ -276,7 +276,12 @@ gulp.task( 'theo', function () {
     gulp.src( './src/design/props.json' )
         .pipe( theo.plugins.transform( 'web' ) )
         .pipe( theo.plugins.format( 'scss' ) )
-        .pipe( gulp.dest( './src/scss/design/_tokens.scss' ) );
+        .pipe( gulp.dest( './src/scss/design/' ) );
+
+    gulp.src( './src/design/sets/*.json' )
+        .pipe( theo.plugins.transform( 'web' ) )
+        .pipe( theo.plugins.format( 'map.scss' ) )
+        .pipe( gulp.dest( './src/scss/design/' ) );
 } );
 
 
