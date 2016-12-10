@@ -278,10 +278,10 @@ gulp.task( 'theo', function () {
         .pipe( theo.plugins.format( 'scss' ) )
         .pipe( gulp.dest( './src/scss/design/' ) );
 
-    gulp.src( './src/design/sets/*.json' )
+    gulp.src( './src/design/sets/**/*-font.json' )
         .pipe( theo.plugins.transform( 'web' ) )
         .pipe( theo.plugins.format( 'map.scss' ) )
-        .pipe( gulp.dest( './src/scss/design/' ) );
+        .pipe( gulp.dest( './src/scss/design/tokens/' ) );
 } );
 
 

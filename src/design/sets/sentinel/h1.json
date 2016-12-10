@@ -1,0 +1,15 @@
+{
+  "global": {
+    "category": "sentinel-font"
+  },
+  "props": {
+    "h1-font-size": {
+      "value": "36px",
+      "type": "number"
+    },
+    "h1-font-weight": {
+      "value": "normal",
+      "type": "string"
+    }
+  }
+}

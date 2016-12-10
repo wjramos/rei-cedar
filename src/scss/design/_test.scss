@@ -1,9 +1,24 @@
-@import "headings.map.scss";
+@import "tokens/sentinel/sentinel-font.map.scss";
 
-@each $variant, $defs in $headings-map {
-  .#{$variant} {
-    @each $attr, $value in $defs {
-      #{$attr}: #{$value};
-    }
+$fonts-map: (
+  "sentinel": $sentinel-font-map
+);
+
+@each $font-name, $map in $fonts-map {
+  $className: map-get($map, class);
+  $fontStyle: map-get($map, font-style);
+  $fontVariant: map-get($map, font-variant);
+  $fontWeight: map-get($map, font-weight);
+  $lineHeight: map-get($map, line-height);
+  $fontFamily: map-get($map, font-family);
+
+  .header-#{$className} {
+    font-style: #{$fontStyle};
+    font-variant: #{$fontVariant};
+    font-weight: #{$fontWeight};
+    line-height: #{$lineHeight};
+    font-family: #{$fontFamily};
   }
+
+  //TODO: h1-h6 styles
 }

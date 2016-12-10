@@ -1,0 +1,25 @@
+{
+  "global": {
+    "category": "sentinel-font"
+  },
+
+  "aliases": {
+    "sky": "blue"
+  },
+
+  "props": {
+    "class": {
+      "value": "core",
+      "type": "string"
+    },
+    "font-family": {
+      "value": "HCo Sentinel",
+      "type": "string"
+    }
+  },
+
+  "imports": [
+    "./h1.json",
+    "./h2.json"
+  ]
+}

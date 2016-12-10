@@ -3,10 +3,17 @@
 // global_vars and uncomment the line below
 // @import "themes/settings";
 
-@import "design/test";
 
 // Utility mixins
 @import "utils/main";
+
+
+
+// TODO: remove
+// Proof of concept for adding font variants for headers
+@import "design/test";
+
+
 
 // NOTE: Any changes/additions/removal of variables in these files
 // should be updated in theme settings as well
