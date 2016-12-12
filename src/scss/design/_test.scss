@@ -12,7 +12,8 @@ $fonts-map: (
   $lineHeight: map-get($map, line-height);
   $fontFamily: map-get($map, font-family);
 
-  .header-#{$className} {
+  //Base class for font
+  .#{$prefix}header-#{$className} {
     font-style: #{$fontStyle};
     font-variant: #{$fontVariant};
     font-weight: #{$fontWeight};
@@ -20,5 +21,28 @@ $fonts-map: (
     font-family: #{$fontFamily};
   }
 
-  //TODO: h1-h6 styles
+  //Individual overrides per heading level
+  @each $key, $value in $map {
+    //TODO: h1-h6 style maps?
+    @if(str-index($key, h-1)) {
+
+    }
+    @if(str-index($key, h-2)) {
+
+    }
+    @if(str-index($key, h-3)) {
+
+    }
+    @if(str-index($key, h-4)) {
+
+    }
+    @if(str-index($key, h-5)) {
+
+    }
+    @if(str-index($key, h-6)) {
+
+    }
+
+  }
+
 }
