@@ -1,8 +1,79 @@
 @import "tokens/sentinel/sentinel-font.map.scss";
 
 $fonts-map: (
-  "sentinel": $sentinel-font-map
+"sentinel": $sentinel-font-map
 );
+
+// Mixin for generating styles from header map definitions
+@mixin build-mapped-styles($headers) {
+  @each $header, $header-defs in $headers {
+    .here { font-family: #{$header}; }
+    $font-size-temp: 1rem;
+    #{$header} {
+
+      @if map-has-key($header-defs, font-size) {
+        $font-size-temp: rem-calc(map-get($header-defs, font-size));
+        font-size: $font-size-temp;
+      }
+
+      @if map-has-key($header-defs, font-weight) {
+        font-weight: map-get($header-defs, font-weight);
+      }
+
+      @if map-has-key($header-defs, line-height) {
+        line-height: unitless-calc(map-get($header-defs, line-height), $font-size-temp);
+      }
+
+      @if map-has-key($header-defs, margin-top) {
+        margin-top: rem-calc(map-get($header-defs, margin-top));
+      }
+
+      @if map-has-key($header-defs, margin-bottom) {
+        margin-bottom: rem-calc(map-get($header-defs, margin-bottom));
+      }
+    }
+  }
+}
+
+@function get-new-key($key) {
+  @if(str-index($key, 'h-1')) {
+    @return 'h1';
+  }
+  @if(str-index($key, 'h-2')) {
+    @return 'h2';
+  }
+  @if(str-index($key, 'h-3')) {
+    @return 'h3';
+  }
+  @if(str-index($key, 'h-4')) {
+    @return 'h4';
+  }
+  @if(str-index($key, 'h-5')) {
+    @return 'h5';
+  }
+  @if(str-index($key, 'h-6')) {
+    @return 'h6';
+  }
+}
+
+@function get-new-val($key, $val) {
+  @if(str-index($key, font-size)) {
+    @return ('font-size': $val);
+  }
+  @if(str-index($key, font-weight)) {
+    @return ('font-weight': $val);
+  }
+  @if(str-index($key, line-height)) {
+    @return ('line-height': $val);
+  }
+  @if(str-index($key, margin-top)) {
+    @return ('margin-top': $val);
+  }
+  @if(str-index($key, margin-bottom)) {
+    @return ('margin-bottom': $val);
+  }
+}
+
 
 @each $font-name, $map in $fonts-map {
   $className: map-get($map, class);
@@ -21,28 +92,31 @@ $fonts-map: (
     font-family: #{$fontFamily};
   }
 
-  //Individual overrides per heading level
-  @each $key, $value in $map {
-    //TODO: h1-h6 style maps?
-    @if(str-index($key, h-1)) {
+  $font-style-map: ();
 
+  @each $key, $val in $map {
+    //TODO: make this work for other breakpoints
+    @if (str-index($key, '-sm')) {
+      $smKey: get-new-key($key);
+      $smVal: get-new-val($key, $val);
+      $small-map: (
+        small: (
+          $smKey: $smVal
+        )
+      );
+      $font-style-map: map-merge($font-style-map, $small-map);
     }
-    @if(str-index($key, h-2)) {
-
-    }
-    @if(str-index($key, h-3)) {
-
-    }
-    @if(str-index($key, h-4)) {
-
-    }
-    @if(str-index($key, h-5)) {
-
-    }
-    @if(str-index($key, h-6)) {
-
-    }
-
   }
 
+  // Heading styles
+  @each $size, $headers in $font-style-map {
+    //only make a media query for things above small
+    @if $size != $zero-breakpoint {
+      @include mq($size) {
+        @include build-mapped-styles($headers);
+      }
+    } @else {
+      @include build-mapped-styles($headers);
+    }
+  }
 }

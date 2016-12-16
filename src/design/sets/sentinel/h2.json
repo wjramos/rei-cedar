@@ -3,13 +3,17 @@
     "category": "sentinel-font"
   },
   "props": {
-    "h2-font-size": {
+    "h2-font-size-sm": {
       "value": "30px",
       "type": "number"
     },
-    "h2-font-weight": {
+    "h2-font-weight-sm": {
       "value": "normal",
       "type": "string"
+    },
+    "h2-font-size-md": {
+      "value": "34px",
+      "type": "number"
     }
   }
 }

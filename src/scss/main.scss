@@ -1,3 +1,4 @@
+//TODO: move this to settings
 $prefix: cdr-;
 // Variable overrides
 // NOTE: Make changes to variables in this file rather than modifying
@@ -22,5 +23,5 @@ $prefix: cdr-;
 
 
 // Use mixins here for easy source order control
-@include cedar-base-styles;
-@include cedar-typography;
+// @include cedar-base-styles;
+// @include cedar-typography;
