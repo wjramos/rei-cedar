@@ -15,7 +15,7 @@ $header-text-rendering: optimizeLegibility !default;
 // NOTE: size key names are mapped from $mq-breakpoints
 $header-styles: (
   small: (
-    'h1': ('font-size': 24),
+    'h1': ('font-size': 24, 'line-height': 1),
     'h2': ('font-size': 20),
     'h3': ('font-size': 19),
     'h4': ('font-size': 18),
@@ -23,7 +23,7 @@ $header-styles: (
     'h6': ('font-size': 16),
   ),
   medium: (
-    'h1': ('font-size': 48),
+    'h1': ('font-size': 48, 'line-height': 1.5),
     'h2': ('font-size': 40),
     'h3': ('font-size': 31),
     'h4': ('font-size': 25),
@@ -62,26 +62,27 @@ $header-styles: (
 
 // Mixin for generating styles from header map definitions
 @mixin build-mapped-styles($headers) {
-  $result: '';
   @each $header, $header-defs in $headers {
     $font-size-temp: 1rem;
     #{$header} {
+      @each $attr, $val in $header-defs {
+        @debug $attr, $val;
+        @if ($attr == font-size) {
+          $font-size-temp: rem-calc($val);
+          font-size: $font-size-temp;
+        }
 
-      @if map-has-key($header-defs, font-size) {
-        $font-size-temp: rem-calc(map-get($header-defs, font-size));
-        font-size: $font-size-temp;
-      }
+        @if ($attr == line-height) {
+          line-height: unitless-calc($val);
+        }
 
-      @if map-has-key($header-defs, line-height) {
-        line-height: unitless-calc(map-get($header-defs, line-height), $font-size-temp);
-      }
+        @if ($attr == margin-top) {
+          margin-top: rem-calc($val);
+        }
 
-      @if map-has-key($header-defs, margin-top) {
-        margin-top: rem-calc(map-get($header-defs, margin-top));
-      }
-
-      @if map-has-key($header-defs, margin-bottom) {
-        margin-bottom: rem-calc(map-get($header-defs, margin-bottom));
+        @if ($attr == margin-bottom) {
+          margin-bottom: rem-calc($val);
+        }
       }
     }
   }
