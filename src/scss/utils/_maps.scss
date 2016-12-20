@@ -1,5 +1,11 @@
 // See https://www.sitepoint.com/extra-map-functions-sass/ for examples
 
+// a map-set function
+@function map-set($map, $key, $value) {
+  $new: ($key: $value);
+  @return map-merge($map, $new);
+}
+
 /// Fetch nested keys
 /// @param {Map} $map - Map
 /// @param {Arglist} $keys - Keys to fetch
@@ -76,6 +82,35 @@
   }
 
   @return true;
+}
+
+// Merge nested maps
+@function map-deep-merge($map-old, $map-new, $overwrite: true){
+  // Iterate through each value of the new map
+  @each $key, $new-value in $map-new {
+    // Check if that value already exists on the old map
+    @if map-has-key($map-old, $key) {
+
+      $old-value: map-get($map-old, $key);
+      $new-value-is-map: type-of($new-value) == map;
+      $old-value-is-map: type-of($old-value) == map;
+
+      // If both are maps, recurse regardless of $overwrite
+      @if $old-value-is-map and $new-value-is-map {
+        $merged-value: map-deep-merge($old-value, $new-value);
+        $map-old: map-set($map-old, $key, $merged-value);
+      }@else{
+        // Otherwise check $overwrite
+        @if $overwrite{
+          $map-old: map-set($map-old, $key, $new-value);
+        }
+      }
+    // There is no existing key so add
+    }@else{
+      $map-old: map-set($map-old, $key, $new-value);
+    }
+  }
+  @return $map-old
 }
 
 // Debug maps

@@ -1,34 +1,113 @@
 @import "tokens/sentinel/sentinel-font.map.scss";
 
 $fonts-map: (
-"sentinel": $sentinel-font-map
+  "sentinel": $sentinel-font-map
 );
 
+@mixin cedar-headings {
+  @each $font-name, $map in $fonts-map {
+    $className: map-get($map, class);
+    // $fontStyle: map-get($map, font-style);
+    // $fontVariant: map-get($map, font-variant);
+    // $fontWeight: map-get($map, font-weight);
+    // $lineHeight: map-get($map, line-height);
+    // $fontFamily: map-get($map, font-family);
+    //
+    // //Base class for font
+    // .#{$prefix}header-#{$className} {
+    //   font-style: #{$fontStyle};
+    //   font-variant: #{$fontVariant};
+    //   font-weight: #{$fontWeight};
+    //   line-height: #{$lineHeight};
+    //   font-family: #{$fontFamily};
+    // }
+
+    // TODO: hook this in with breakpoints variables
+    $font-style-map: ();
+
+    @each $key, $val in $map {
+      @if (str-index($key, '-sm')) {
+        $font-style-map: make-bp-map($key, $val, $font-style-map, small);
+      }
+      @else if (str-index($key, '-md')) {
+        $font-style-map: make-bp-map($key, $val, $font-style-map, medium);
+      }
+      @else {
+        $font-style-map: make-bp-map($key, $val, $font-style-map, small);
+      }
+    }
+
+    @include debug-map($font-style-map);
+
+    // Heading styles
+    @each $size, $defs in $font-style-map {
+      //only make a media query for things above small (mobile-first)
+      @if $size != $zero-breakpoint {
+        @include mq($size) {
+          @include build-mapped-styles($defs, $className);
+        }
+      } @else {
+        @include build-mapped-styles($defs, $className);
+      }
+    }
+  }
+}
+
+@function make-bp-map($key, $val, $baseMap, $bp) {
+  $el: get-el($key);
+  $attr: get-attr($key, $val);
+
+  // set up bp map if there isn't one
+  @if not(map-has-key($baseMap, #{$bp})) {
+    $baseMap: map-set($baseMap, #{$bp}, ());
+  }
+
+  // is element specific
+  @if ($el) {
+    // set up element map if there isn't one
+    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$el})) {
+      $newElMap: map-deep-set($baseMap, #{$bp}, (#{$el}:()));
+      $baseMap: map-deep-merge($baseMap, $newElMap);
+    }
+    $newMap: map-deep-set($baseMap, #{$bp}, #{$el}, #{$attr}, #{$val});
+    $returnMap: map-deep-merge($baseMap, $newMap);
+    @return $returnMap;
+  }
+  // only breakpoint specific
+  @else {
+    //TODO: what to do about null attr?
+    $returnMap: map-deep-set($baseMap, #{$bp}, #{$attr}, #{$val});
+    @return $returnMap;
+  }
+}
+
 // Mixin for generating styles from header map definitions
+// TODO: extend this to build base styles too -- recursion?
 @mixin build-mapped-styles($headers, $class) {
   @each $header, $header-defs in $headers {
     #{$header}.#{$prefix}header-#{$class} {
       @each $attr, $val in $header-defs {
         @if ($attr == font-size) {
-          font-size: rem-calc($val);
+          font-size: rem-calc(to-number($val));
         }
         @if ($attr == font-weight) {
           font-weight: $val;
         }
         @if ($attr == line-height) {
-          line-height: $val;
+          line-height: unitless-calc($val);
         }
         @if ($attr == margin-top) {
-          margin-top: rem-calc($val);
+          margin-top: rem-calc(to-number($val));
         }
         @if ($attr == margin-bottom) {
-          margin-bottom: rem-calc($val);
+          margin-bottom: rem-calc(to-number($val));
         }
       }
     }
   }
 }
 
+// TODO: extend this into it's own map/functions for checking
 @function get-el($key) {
   @if(str-index($key, 'h-1')) {
     @return 'h1';
@@ -48,93 +127,34 @@ $fonts-map: (
   @if(str-index($key, 'h-6')) {
     @return 'h6';
   }
+  @return null;
 }
 
+// TODO: extend this into own map/functions
 @function get-attr($key, $val) {
   @if(str-index($key, font-size)) {
     @return 'font-size';
   }
-  @if(str-index($key, font-weight)) {
+  @else if(str-index($key, font-weight)) {
     @return 'font-weight';
   }
-  @if(str-index($key, line-height)) {
+  @else if(str-index($key, font-family)) {
+    @return 'font-family';
+  }
+  @else if(str-index($key, line-height)) {
     @return 'line-height';
   }
-  @if(str-index($key, margin-top)) {
+  @else if(str-index($key, margin-top)) {
     @return 'margin-top';
   }
-  @if(str-index($key, margin-bottom)) {
+  @else if(str-index($key, margin-bottom)) {
     @return 'margin-bottom';
   }
-}
-
-@function make-bp-map($key, $val, $baseMap, $bp) {
-  $el: get-el($key);
-  $attr: get-attr($key, $val);
-
-  // check if breakpoint map exists
-  @if (map-has-key($baseMap, #{$bp})) {
-    $bpMap: map-deep-get($baseMap, #{$bp});
-    // check if element map exists
-    @if (map-has-key($bpMap, #{$el})) {
-      // add to existing element map
-      $elMap: map-deep-get($baseMap, #{$bp}, #{$el});
-      $elMap: map-merge($elMap, ($attr:$val));
-      $returnMap: map-deep-set($baseMap, #{$bp}, #{$el}, $elMap);
-      @return $returnMap;
-    }
-    // create element map if !exists
-    $bpMap: map-merge($bpMap, (#{$el}: ()));
-    $baseMap: map-deep-set($baseMap, #{$bp}, $bpMap);
-    $returnMap: map-deep-set($baseMap, #{$bp}, #{$el}, $attr, $val);
-    @return $returnMap;
-  }
-  // create breakpoint map and element map if !exists
-  $baseMap: map-merge($baseMap, (#{$bp}:(#{$el}:())));
-  $returnMap: map-deep-set($baseMap, #{$bp}, #{$el}, $attr, $val);
-
-  @return $returnMap;
-}
-
-@each $font-name, $map in $fonts-map {
-  $className: map-get($map, class);
-  $fontStyle: map-get($map, font-style);
-  $fontVariant: map-get($map, font-variant);
-  $fontWeight: map-get($map, font-weight);
-  $lineHeight: map-get($map, line-height);
-  $fontFamily: map-get($map, font-family);
-
-  //Base class for font
-  .#{$prefix}header-#{$className} {
-    font-style: #{$fontStyle};
-    font-variant: #{$fontVariant};
-    font-weight: #{$fontWeight};
-    line-height: #{$lineHeight};
-    font-family: #{$fontFamily};
-  }
-
-  $font-style-map: ();
-
-  @each $key, $val in $map {
-    @if (str-index($key, '-sm')) {
-      $font-style-map: make-bp-map($key, $val, $font-style-map, small);
-    }
-    @if (str-index($key, '-md')) {
-      $font-style-map: make-bp-map($key, $val, $font-style-map, medium);
-    }
-  }
-
-  @include debug-map($font-style-map);
-
-  // Heading styles
-  @each $size, $headers in $font-style-map {
-    //only make a media query for things above small
-    @if $size != $zero-breakpoint {
-      @include mq($size) {
-        @include build-mapped-styles($headers, $className);
-      }
-    } @else {
-      @include build-mapped-styles($headers, $className);
-    }
+  @else {
+    @warn 'attr \'#{$key}\' does not exist in definitions';
+    @return null;
   }
 }
+
+// build everything here
+@include cedar-headings();

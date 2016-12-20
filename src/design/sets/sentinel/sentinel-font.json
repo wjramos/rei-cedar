@@ -11,6 +11,14 @@
     "font-family": {
       "value": "HCo Sentinel",
       "type": "string"
+    },
+    "line-height": {
+      "value": "1",
+      "type": "string"
+    },
+    "line-height-md": {
+      "value": "1.5",
+      "type": "string"
     }
   },
 
