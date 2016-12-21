@@ -9,18 +9,25 @@ $fonts-map: (
     $className: map-get($map, class);
     $fullClass: #{$prefix}#{$className};
 
-    // TODO: hook this in with breakpoints variables
+    // prepopulate map with breakpoint values
     $font-style-map: ();
-    // TODO: this too ^^
+    @each $key, $value in $mq-breakpoints {
+      $font-style-map: map-set($font-style-map, #{$key}, ());
+    }
+
+    // build out map with all styles organized by breakpoints and element specifics
     @each $key, $val in $map {
-      @if (str-index($key, '-sm')) {
-        $font-style-map: make-bp-map($key, $val, $font-style-map, small);
+      $found: false; // hack because sass doesn't have break
+      // look for definitions that match defined breakpoints
+      @each $bpname, $bpval in $font-style-map {
+        @if (str-index($key, '-#{$bpname}')) {
+          $found: true;
+          $font-style-map: build-style-map($key, $val, $font-style-map, #{$bpname});
+        }
       }
-      @else if (str-index($key, '-md')) {
-        $font-style-map: make-bp-map($key, $val, $font-style-map, medium);
-      }
-      @else {
-        $font-style-map: make-bp-map($key, $val, $font-style-map, small);
+      // if no bp defined, assume it's for small bp/general (mobile-first)
+      @if not($found) {
+        $font-style-map: build-style-map($key, $val, $font-style-map, $zero-breakpoint);
       }
     }
 
@@ -39,40 +46,11 @@ $fonts-map: (
         }
       }
     }
-  }
-}
 
-@function make-bp-map($key, $val, $baseMap, $bp) {
-  $el: get-el($key);
-  $prop: get-prop($key, $val);
-
-  // set up bp map if there isn't one
-  @if not(map-has-key($baseMap, #{$bp})) {
-    $baseMap: map-set($baseMap, #{$bp}, ());
-  }
-
-  // is element specific
-  @if ($el) {
-    // set up element map if there isn't one
-    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$el})) {
-      $newElMap: map-deep-set($baseMap, #{$bp}, (#{$el}:()));
-      $baseMap: map-deep-merge($baseMap, $newElMap);
-    }
-    $newMap: map-deep-set($baseMap, #{$bp}, #{$el}, #{$prop}, #{$val});
-    $returnMap: map-deep-merge($baseMap, $newMap);
-    @return $returnMap;
-  }
-  // only breakpoint specific
-  @else {
-    // just use key if not a valid prop
-    @if not($prop) { $prop: $key; }
-    $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
-    @return $returnMap;
   }
 }
 
 // Mixin for generating styles from header map definitions
-// TODO: fix recursively building class stuff
 // TODO: better way to look for/output properties
 @mixin build-mapped-styles($defs) {
     @each $key, $val in $defs {

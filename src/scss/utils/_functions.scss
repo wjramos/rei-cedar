@@ -1,3 +1,41 @@
+@function add-empty-bp-maps($bps) {
+  $returnMap: ();
+  @each $key, $value in $bps {
+    $returnMap: map-set($returnMap, #{$key}, ());
+  }
+  @return $returnMap;
+}
+
+@function build-style-map($key, $val, $baseMap, $bp) {
+  $el: get-el($key);
+  $prop: get-prop($key, $val);
+
+  // set up bp map if there isn't one
+  @if not(map-has-key($baseMap, #{$bp})) {
+    @warn '#{$bp} is not defined';
+    $baseMap: map-set($baseMap, #{$bp}, ());
+  }
+
+  // is element specific
+  @if ($el) {
+    // set up element map if there isn't one
+    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$el})) {
+      $newElMap: map-deep-set($baseMap, #{$bp}, (#{$el}:()));
+      $baseMap: map-deep-merge($baseMap, $newElMap);
+    }
+    $newMap: map-deep-set($baseMap, #{$bp}, #{$el}, #{$prop}, #{$val});
+    $returnMap: map-deep-merge($baseMap, $newMap);
+    @return $returnMap;
+  }
+  // only breakpoint specific
+  @else {
+    // just use key if not a valid prop
+    @if not($prop) { $prop: $key; }
+    $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
+    @return $returnMap;
+  }
+}
+
 // TODO: extend this into it's own map/functions for checking
 @function get-el($key) {
   @if(str-index($key, 'h-1')) {
@@ -42,7 +80,7 @@
     @return 'margin-bottom';
   }
   @else {
-    @warn 'property \'#{$key}\' does not exist in definitions';
+    @warn 'property \'#{$key}\' does not exist in property definitions';
     @return null;
   }
 }
