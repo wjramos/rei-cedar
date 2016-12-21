@@ -1,7 +1,7 @@
 @import "tokens/sentinel/sentinel-font.map.scss";
 
 $fonts-map: (
-  "sentinel": $sentinel-font-map
+"sentinel": $sentinel-font-map
 );
 
 @mixin cedar-headings {
@@ -59,24 +59,25 @@ $fonts-map: (
 
 // Mixin for generating styles from header map definitions
 @mixin build-mapped-styles($defs) {
-    @each $key, $val in $defs {
-      @if type-of($val) == map {
-        &.#{$key} {
-          @include build-mapped-styles($val);
-        }
+  @each $key, $val in $defs {
+    // if a map, chain a class and get the values
+    @if type-of($val) == map {
+      &.#{$key} {
+        @include build-mapped-styles($val);
       }
-      @else {
-        /// QUESTION/NOTE/TODO: need to enforce/limit to known good values?
-        /// in order to set things like units (px vs rem vs unitless)
-        // @if ($key == font-size) {
-        //   font-size: rem-calc(to-number($val));
-        // }
-        // @else if ($key == font-weight) {
-        //   font-weight: $val;
-        // }
-        /// QUESTION/NOTE: OR trust what is given?
-        #{$key}: #{$val};
-      }
+    }
+    @else {
+      /// QUESTION/NOTE/TODO: need to enforce/limit to known good values?
+      /// in order to set things like units (px vs rem vs unitless)
+      // @if ($key == font-size) {
+      //   font-size: rem-calc(to-number($val));
+      // }
+      // @else if ($key == font-weight) {
+      //   font-weight: $val;
+      // }
+      /// QUESTION/NOTE: OR trust what is given?
+      #{$key}: #{$val};
+    }
   }
 }
 

@@ -4,7 +4,7 @@
   },
   "props": {
     "h2-font-size-small": {
-      "value": "30px",
+      "value": "1.1rem",
       "type": "number"
     },
     "h2-font-weight-small": {
@@ -12,7 +12,7 @@
       "type": "string"
     },
     "h2-font-size-medium": {
-      "value": "34px",
+      "value": "1.2rem",
       "type": "number"
     }
   }

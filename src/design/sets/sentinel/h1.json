@@ -4,7 +4,7 @@
   },
   "props": {
     "h1-font-size-small": {
-      "value": "36px",
+      "value": "1.8rem",
       "type": "number"
     },
     "h1-font-weight-small": {
@@ -12,7 +12,7 @@
       "type": "string"
     },
     "h1-font-size-medium": {
-      "value": "40px",
+      "value": "2rem",
       "type": "number"
     },
     "h1-font-weight-medium": {

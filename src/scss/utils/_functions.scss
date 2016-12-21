@@ -7,14 +7,8 @@
 }
 
 @function generate-style-map($key, $val, $baseMap, $bp) {
-  $el: get-el($key);
-  $prop: get-prop($key, $val);
-
-  // set up bp map if there isn't one
-  @if not(map-has-key($baseMap, #{$bp})) {
-    @warn '#{$bp} is not defined';
-    $baseMap: map-set($baseMap, #{$bp}, ());
-  }
+  $el: get-el($key); // get an element if one is defined
+  $prop: get-prop($key);
 
   // is element specific
   @if ($el) {
@@ -27,10 +21,8 @@
     $returnMap: map-deep-merge($baseMap, $newMap);
     @return $returnMap;
   }
-  // only breakpoint specific
+  // not element specific
   @else {
-    // just use key if not a valid prop
-    @if not($prop) { $prop: $key; }
     $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
     @return $returnMap;
   }
