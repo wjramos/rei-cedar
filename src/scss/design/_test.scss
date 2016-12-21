@@ -7,7 +7,7 @@ $fonts-map: (
 @mixin cedar-headings {
   @each $font-name, $map in $fonts-map {
     // unique placeholder in case of no defined class
-    // TODO: better idea?
+    // TODO: better idea? maybe use font-name?
     $fullClass: class-#{unique-id()};
     // if class defined -> set variable and remove it so it's only css properties left
     @if (map-has-key($map, 'class')) {
