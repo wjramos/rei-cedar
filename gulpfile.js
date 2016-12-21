@@ -263,7 +263,9 @@ gulp.task( 'css:build', [ 'css:clean' ], () => {
 gulp.task( 'sass', function () {
     return gulp.src( './src/scss/**/*.scss' )
         .pipe( sourcemaps.init() )
-        .pipe( sass().on( 'error', sass.logError ) )
+        .pipe( sass( {
+            outputStyle: 'expanded'
+        } ).on( 'error', sass.logError ) )
         .pipe( postcss( [ autoprefixer( {
             browsers: [ 'last 2 versions' ]
         } ) ] ) )
