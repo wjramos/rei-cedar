@@ -69,6 +69,7 @@ $fonts-map: (
     @else {
       /// QUESTION/NOTE/TODO: need to enforce/limit to known good values?
       /// in order to set things like units (px vs rem vs unitless)
+      /// this would add a lot more complexity
       // @if ($key == font-size) {
       //   font-size: rem-calc(to-number($val));
       // }
