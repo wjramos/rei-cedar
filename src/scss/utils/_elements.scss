@@ -1,0 +1,20 @@
+// for finding element declarations in map keys from theo's generated scss maps
+
+// TODO: add more elements
+$el-definitions: (
+  h-1: 'h1',
+  h-2: 'h2',
+  h-3: 'h3',
+  h-4: 'h4',
+  h-5: 'h5',
+  h-6: 'h6'
+);
+
+@function get-el($input) {
+  @each $defkey, $defval in $el-definitions {
+    @if(str-index($input, $defkey)) {
+      @return $defval;
+    }
+  }
+  @return null;
+}

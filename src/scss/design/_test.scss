@@ -6,8 +6,15 @@ $fonts-map: (
 
 @mixin cedar-headings {
   @each $font-name, $map in $fonts-map {
-    $className: map-get($map, class);
-    $fullClass: #{$prefix}#{$className};
+    // unique placeholder in case of no defined class
+    // TODO: better idea?
+    $fullClass: class-#{unique-id()};
+    // if class defined -> set variable and remove it so it's only css properties left
+    @if (map-has-key($map, 'class')) {
+      $className: map-get($map, class);
+      $fullClass: #{$prefix}#{$className};
+      $map: map-remove($map, class);
+    }
 
     // prepopulate map with breakpoint values
     $font-style-map: ();
@@ -22,12 +29,12 @@ $fonts-map: (
       @each $bpname, $bpval in $font-style-map {
         @if (str-index($key, '-#{$bpname}')) {
           $found: true;
-          $font-style-map: build-style-map($key, $val, $font-style-map, #{$bpname});
+          $font-style-map: generate-style-map($key, $val, $font-style-map, #{$bpname});
         }
       }
-      // if no bp defined, assume it's for small bp/general (mobile-first)
+      // if no match (or no bp defined), assume it's for small bp/general (mobile-first)
       @if not($found) {
-        $font-style-map: build-style-map($key, $val, $font-style-map, $zero-breakpoint);
+        $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint);
       }
     }
 
@@ -51,7 +58,6 @@ $fonts-map: (
 }
 
 // Mixin for generating styles from header map definitions
-// TODO: better way to look for/output properties
 @mixin build-mapped-styles($defs) {
     @each $key, $val in $defs {
       @if type-of($val) == map {
@@ -60,24 +66,16 @@ $fonts-map: (
         }
       }
       @else {
-        @if ($key == font-size) {
-          font-size: rem-calc(to-number($val));
-        }
-        @else if ($key == font-weight) {
-          font-weight: $val;
-        }
-        @else if ($key == font-family) {
-          font-family: $val;
-        }
-        @else if ($key == line-height) {
-          line-height: unitless-calc(to-number($val));
-        }
-        @else if ($key == margin-top) {
-          margin-top: rem-calc(to-number($val));
-        }
-        @else if ($key == margin-bottom) {
-          margin-bottom: rem-calc(to-number($val));
-        }
+        /// QUESTION/NOTE/TODO: need to enforce/limit to known good values?
+        /// in order to set things like units (px vs rem vs unitless)
+        // @if ($key == font-size) {
+        //   font-size: rem-calc(to-number($val));
+        // }
+        // @else if ($key == font-weight) {
+        //   font-weight: $val;
+        // }
+        /// QUESTION/NOTE: OR trust what is given?
+        #{$key}: #{$val};
       }
   }
 }

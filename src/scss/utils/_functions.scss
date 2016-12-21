@@ -6,7 +6,7 @@
   @return $returnMap;
 }
 
-@function build-style-map($key, $val, $baseMap, $bp) {
+@function generate-style-map($key, $val, $baseMap, $bp) {
   $el: get-el($key);
   $prop: get-prop($key, $val);
 
@@ -33,54 +33,5 @@
     @if not($prop) { $prop: $key; }
     $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
     @return $returnMap;
-  }
-}
-
-// TODO: extend this into it's own map/functions for checking
-@function get-el($key) {
-  @if(str-index($key, 'h-1')) {
-    @return 'h1';
-  }
-  @if(str-index($key, 'h-2')) {
-    @return 'h2';
-  }
-  @if(str-index($key, 'h-3')) {
-    @return 'h3';
-  }
-  @if(str-index($key, 'h-4')) {
-    @return 'h4';
-  }
-  @if(str-index($key, 'h-5')) {
-    @return 'h5';
-  }
-  @if(str-index($key, 'h-6')) {
-    @return 'h6';
-  }
-  @return null;
-}
-
-// TODO: extend this into own map/functions
-@function get-prop($key, $val) {
-  @if(str-index($key, font-size)) {
-    @return 'font-size';
-  }
-  @else if(str-index($key, font-weight)) {
-    @return 'font-weight';
-  }
-  @else if(str-index($key, font-family)) {
-    @return 'font-family';
-  }
-  @else if(str-index($key, line-height)) {
-    @return 'line-height';
-  }
-  @else if(str-index($key, margin-top)) {
-    @return 'margin-top';
-  }
-  @else if(str-index($key, margin-bottom)) {
-    @return 'margin-bottom';
-  }
-  @else {
-    @warn 'property \'#{$key}\' does not exist in property definitions';
-    @return null;
   }
 }

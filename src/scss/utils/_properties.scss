@@ -1,0 +1,25 @@
+// TODO: extend this into own map/functions
+@function get-prop($key, $val) {
+  @if(str-index($key, font-size)) {
+    @return 'font-size';
+  }
+  @else if(str-index($key, font-weight)) {
+    @return 'font-weight';
+  }
+  @else if(str-index($key, font-family)) {
+    @return 'font-family';
+  }
+  @else if(str-index($key, line-height)) {
+    @return 'line-height';
+  }
+  @else if(str-index($key, margin-top)) {
+    @return 'margin-top';
+  }
+  @else if(str-index($key, margin-bottom)) {
+    @return 'margin-bottom';
+  }
+  @else {
+    @warn 'property \'#{$key}\' does not exist in property definitions';
+    @return null;
+  }
+}
