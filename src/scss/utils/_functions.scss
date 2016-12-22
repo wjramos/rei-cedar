@@ -8,6 +8,7 @@
 
 @function generate-style-map($key, $val, $baseMap, $bp) {
   $el: get-el($key); // get an element if one is defined
+  // TODO: get type casting for validation working around here...?
   $prop: get-prop($key);
 
   // is element specific
