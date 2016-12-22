@@ -1,0 +1,139 @@
+@mixin create-extension-styles($variantMap) {
+  @each $font-name, $map in $variantMap {
+    // unique placeholder in case of no defined class
+    // TODO: better idea? maybe use font-name?
+    $fullClass: class-#{unique-id()};
+    // TODO/QUESTION: do we want other reserved keys like class?
+    // if class defined -> set variable and remove it so it's only css properties left
+    @if (map-has-key($map, 'class')) {
+      $className: map-get($map, class);
+      $fullClass: #{$prefix}#{$className};
+      $map: map-remove($map, class);
+    }
+
+    // prepopulate map with breakpoint values
+    $font-style-map: ();
+    @each $key, $value in $mq-breakpoints {
+      $font-style-map: map-set($font-style-map, #{$key}, ());
+    }
+
+    // build out map with all styles organized by breakpoints and element specifics
+    @each $key, $val in $map {
+      $split: _split($key, $varDelimiter);
+      $el: false;
+      $prop: false;
+      $breakpoint: false;
+      @each $item in $split {
+        $allGood: false; // hack because sass can't break loops
+        // remove leading - to normalize for _starts-with
+        $item: _trim-left($item, '-');
+
+        @if (_starts-with($item, $elementId)) {
+          $el: get-el($item);
+          $allGood: true;
+        } @else if (_starts-with($item, $propertyId)) {
+          $prop: get-prop($item);
+          $allGood: true;
+        } @else if (_starts-with($item, $breakpointId)) {
+          $breakpoint: get-bp($item, $font-style-map);
+          $allGood: true;
+        } @else if not($allGood) {
+          @warn '\'#{$key}\' is missing identifiers or the variables for them are wrong';
+        }
+      }
+
+      // if no breakpoint set, assume it's small/general (mobile-first)
+      @if not($breakpoint) {
+        $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint, $el, $prop);
+      }@else {
+        $font-style-map: generate-style-map($key, $val, $font-style-map, $breakpoint, $el, $prop);
+      }
+    }
+
+    // Heading styles
+    @each $size, $defs in $font-style-map {
+      //only make a media query for things above small (mobile-first)
+      @if $size != $zero-breakpoint {
+        @include mq($size) {
+          .#{$fullClass} {
+            @include build-mapped-styles($defs);
+          }
+        }
+      } @else {
+        .#{$fullClass} {
+          @include build-mapped-styles($defs);
+        }
+      }
+    }
+
+  }
+}
+
+// Mixin for generating styles from header map definitions
+@mixin build-mapped-styles($defs) {
+  @each $key, $val in $defs {
+    // if a map, chain a class and get the values
+    @if type-of($val) == map {
+      &.#{$prefix}#{$key} {
+        @include build-mapped-styles($val);
+      }
+    }
+    @else {
+      /// QUESTION/NOTE/TODO: need to enforce/limit to known good values?
+      /// in order to set things like units (px vs rem vs unitless)
+      // @if ($key == font-size) {
+      //   font-size: rem-calc(to-number($val));
+      // }
+      // @else if ($key == font-weight) {
+      //   font-weight: $val;
+      // }
+      /// QUESTION/NOTE: OR trust what is given?
+      #{$key}: #{$val};
+    }
+  }
+}
+
+@function add-empty-bp-maps($bps) {
+  $returnMap: ();
+  @each $key, $value in $bps {
+    $returnMap: map-set($returnMap, #{$key}, ());
+  }
+  @return $returnMap;
+}
+
+@function get-bp($input, $map) {
+  // remove leading id (i.e. 'pr-')
+  $input: _trim-left($input, $breakpointId);
+  // remove last - if there is one
+  @if (_ends-with($input, '-')) {
+    $input: str-slice($input, 0, (str-length($input) - 1));
+  }
+
+  @each $name, $val in $map {
+    @if ($input == $name) {
+      @return $name;
+    }
+  }
+  @debug 'Nothing matched in breakpoint definitions: \'#{$input}\'';
+  @return false;
+}
+
+@function generate-style-map($key, $val, $baseMap, $bp, $el:false, $prop:null) {
+
+  // is element specific
+  @if ($el) {
+    // set up element map if there isn't one
+    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$el})) {
+      $newElMap: map-deep-set($baseMap, #{$bp}, (#{$el}:()));
+      $baseMap: map-deep-merge($baseMap, $newElMap);
+    }
+    $newMap: map-deep-set($baseMap, #{$bp}, #{$el}, #{$prop}, #{$val});
+    $returnMap: map-deep-merge($baseMap, $newMap);
+    @return $returnMap;
+  }
+  // not element specific
+  @else {
+    $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
+    @return $returnMap;
+  }
+}
