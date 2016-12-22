@@ -1,3 +1,6 @@
+// Mixin for parsing maps returned from theo and creating styles encoded within
+// @param {Map} $variantMap - map created by theo
+// @return {scss} ouputs the css defined in the map
 @mixin create-extension-styles($variantMap) {
   @each $font-name, $map in $variantMap {
     // unique placeholder in case of no defined class
@@ -69,7 +72,9 @@
   }
 }
 
-// Mixin for generating styles from header map definitions
+// Parses correctly formatted style maps, recurses for nested maps
+// @param {Map} $defs - Map, or nested map, of styles
+// @returns {scss} outputs the css defined in the map
 @mixin build-mapped-styles($defs) {
   @each $key, $val in $defs {
     // if a map, chain a class and get the values
@@ -93,14 +98,11 @@
   }
 }
 
-@function add-empty-bp-maps($bps) {
-  $returnMap: ();
-  @each $key, $value in $bps {
-    $returnMap: map-set($returnMap, #{$key}, ());
-  }
-  @return $returnMap;
-}
-
+// TODO: combine with get-el and get-prop?
+// Match breakpoints to verify they are defined
+// @param {string} $input - parsed breakpoint partial
+// @param {Map} $map - map with breakpoints defined
+// @return {string} $name - matched known defined breakpoint value or false
 @function get-bp($input, $map) {
   // remove leading id (i.e. 'pr-')
   $input: _trim-left($input, $breakpointId);
@@ -118,6 +120,14 @@
   @return false;
 }
 
+// Take parsed values and output a correclty formatted style map
+// @param {string} $key - key from parent map
+// @param {string} $val - value from parent map (contains css property value)
+// @param {map} $baseMap - the style map that we will be adding to
+// @param {string} $bp - breakpoint key for nested map (parsed from key beforehand)
+// @param {string} $prop - css property (parsed from key beforehand)
+// @param *optional {string} $el - html element (parsed from key beforehand)
+// @return {map} $returnMap - Updated map
 @function generate-style-map($key, $val, $baseMap, $bp, $prop, $el:false) {
   // is element specific
   @if ($el) {

@@ -5,11 +5,19 @@ $el-definitions: (
   h-3: 'h3',
   h-4: 'h4',
   h-5: 'h5',
-  h-6: 'h6'
+  h-6: 'h6',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
 );
 
-// TODO: sassdash for starts with to help enforce standards
-// for finding element declarations in map keys from theo's generated scss maps
+// TODO: combine with get-bp and get-prop?
+// Match HTML elements from style map to verify they are defined
+// @param {string} $input - parsed HTML element partial
+// @return {string} $defval - known good HTML selector from definitions
 @function get-el($input) {
   // remove leading id (i.e. 'pr-')
   $input: _trim-left($input, $elementId);

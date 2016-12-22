@@ -4,18 +4,21 @@ $prop-defs: font-size, font-weight, font-family, line-height,
   margin-top, margin-bottom, color;
 
 
-// for finding css property declarations in map keys from theo's generated scss maps
-@function get-prop($inProp) {
+// TODO: combine with get-el and get-bp?
+// Match css properties from style map to verify they are defined
+// @param {string} $input - parsed css property partial
+// @return {string} $def - matched css property or null
+@function get-prop($input) {
   // remove leading id (i.e. 'pr-')
-  $inProp: _trim-left($inProp, $propertyId);
+  $input: _trim-left($input, $propertyId);
   // remove last - if there is one
-  @if (_ends-with($inProp, '-')) {
-    $inProp: str-slice($inProp, 0, (str-length($inProp) - 1));
+  @if (_ends-with($input, '-')) {
+    $input: str-slice($input, 0, (str-length($input) - 1));
   }
 
   // see if resulting string is in our definitions above
   @each $def in $prop-defs {
-    @if ($inProp == $def) {
+    @if ($input == $def) {
       @return $def;
     }
   }
