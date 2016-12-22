@@ -8,15 +8,15 @@
       "value": "typography-core",
       "type": "string"
     },
-    "font-family": {
+    "pr-font-family": {
       "value": "HCo Sentinel",
       "type": "string"
     },
-    "line-height": {
+    "pr-line-height": {
       "value": "1",
       "type": "string"
     },
-    "line-height-medium": {
+    "pr-line-height00bp-medium": {
       "value": "1.5",
       "type": "string"
     }

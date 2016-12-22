@@ -65,6 +65,7 @@
     "riot-compiler": "^2.5.2",
     "riotify": "^1.0.1",
     "run-sequence": "^1.1.5",
+    "sassdash": "^0.8.2",
     "theo": "^5.0.0-beta.1",
     "ucss": "^0.4.8",
     "vinyl-source-stream": "^1.1.0"

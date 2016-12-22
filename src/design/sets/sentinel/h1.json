@@ -3,21 +3,25 @@
     "category": "sentinel-font"
   },
   "props": {
-    "el-h1-font-size-bp-small": {
+    "el-h100pr-font-size00bp-small": {
       "value": "1.8rem",
       "type": "number"
     },
-    "_h1-font-weight-small": {
+    "el-h100pr-font-weight": {
       "value": "normal",
       "type": "string"
     },
-    "_h1-font-size-medium": {
+    "el-h100pr-font-size00bp-medium": {
       "value": "2rem",
       "type": "number"
     },
-    "_h1-font-weight-medium": {
+    "el-h100pr-font-weight00bp-medium": {
       "value": "bold",
       "type": "string"
+    },
+    "pr-color00bp-large": {
+      "value": "red",
+      "type": "color"
     }
   }
 }

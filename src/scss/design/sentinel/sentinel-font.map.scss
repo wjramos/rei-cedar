@@ -1,13 +1,14 @@
 $sentinel-font-map: (
-  "el-h-1-font-size-bp-small": (1.8rem),
-  "h-1-font-weight-small": (normal),
-  "h-1-font-size-medium": (2rem),
-  "h-1-font-weight-medium": (bold),
-  "h-2-font-size-small": (1.1rem),
-  "h-2-font-weight-small": (normal),
-  "h-2-font-size-medium": (1.2rem),
+  "el-h-100-pr-font-size-00-bp-small": (1.8rem),
+  "el-h-100-pr-font-weight": (normal),
+  "el-h-100-pr-font-size-00-bp-medium": (2rem),
+  "el-h-100-pr-font-weight-00-bp-medium": (bold),
+  "pr-color-00-bp-large": (rgb(255, 0, 0)),
+  "el-h-200-pr-font-size-00-bp-small": (1.1rem),
+  "el-h-200-pr-font-weight-00-bp-small": (normal),
+  "el-h-200-pr-font-size-00-bp-medium": (1.2rem),
   "class": (typography-core),
-  "font-family": (HCo Sentinel),
-  "line-height": (1),
-  "line-height-medium": (1.5)
+  "pr-font-family": (HCo Sentinel),
+  "pr-line-height": (1),
+  "pr-line-height-00-bp-medium": (1.5)
 );

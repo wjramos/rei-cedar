@@ -6,10 +6,17 @@
   @return $returnMap;
 }
 
-@function generate-style-map($key, $val, $baseMap, $bp) {
-  $el: get-el($key); // get an element if one is defined
-  // TODO: get type casting for validation working around here...?
-  $prop: get-prop($key);
+@function get-bp($input, $map) {
+  @each $name, $val in $map {
+    @if(str-index($input, $name)) {
+      @return $name;
+    }
+  }
+  @debug 'Nothing matched in element definitions: \'#{$input}\'';
+  @return false;
+}
+
+@function generate-style-map($key, $val, $baseMap, $bp, $el:false, $prop:null) {
 
   // is element specific
   @if ($el) {

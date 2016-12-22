@@ -24,17 +24,36 @@ $fonts-map: (
 
     // build out map with all styles organized by breakpoints and element specifics
     @each $key, $val in $map {
-      $found: false; // hack because sass doesn't have break
-      // look for definitions that match defined breakpoints
-      @each $bpname, $bpval in $font-style-map {
-        @if (str-index($key, '-#{$bpname}')) {
-          $found: true;
-          $font-style-map: generate-style-map($key, $val, $font-style-map, #{$bpname});
+      $split: _split($key, $varDelimiter);
+      $el: false;
+      $prop: false;
+      $breakpoint: false;
+      @each $item in $split {
+        $allGood: false; // hack because sass can't break loops
+        // remove leading - to normalize for _starts-with
+        $item: _trim-left($item, '-');
+
+        @if (_starts-with($item, $elementId)) {
+          $el: get-el($item);
+          $allGood: true;
+        } @else if (_starts-with($item, $propertyId)) {
+          $prop: get-prop($item);
+          $allGood: true;
+        } @else if (_starts-with($item, $breakpointId)) {
+          $breakpoint: get-bp($item, $font-style-map);
+          $allGood: true;
+        } @else if not($allGood) {
+          @warn '\'#{$key}\' is missing identifiers or the variables for them are wrong';
         }
       }
-      // if no match (or no bp defined), assume it's for small bp/general (mobile-first)
-      @if not($found) {
-        $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint);
+
+      @debug $el, $prop, $breakpoint;
+
+      // if no breakpoint set, assume it's small/general (mobile-first)
+      @if not($breakpoint) {
+        $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint, $el, $prop);
+      }@else {
+        $font-style-map: generate-style-map($key, $val, $font-style-map, $breakpoint, $el, $prop);
       }
     }
 

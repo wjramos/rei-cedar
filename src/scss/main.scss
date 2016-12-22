@@ -1,5 +1,10 @@
 //TODO: move this to settings?
 $prefix: cdr-;
+$varDelimiter: '00'; //alpha numeric only (because of theo)
+$elementId: 'el-'; //alpha numeric only (because of theo)
+$propertyId: 'pr-'; //alpha numeric only (because of theo)
+$breakpointId: 'bp-'; //alpha numeric only (because of theo)
+
 // Themes
 // NOTE: Make changes to variables in this file rather than modifying
 // base and uncomment the line below
@@ -9,6 +14,7 @@ $prefix: cdr-;
 // Abstracts
 // Functions, Functional Mixins,
 // -------------------
+@import "./node_modules/sassdash/scss/sassdash";
 @import "abstracts/unit";
 @import "abstracts/cast";
 @import "abstracts/htmlelements";
@@ -19,8 +25,8 @@ $prefix: cdr-;
 // Base
 // -------------------
 @import "base/breakpoints";
-@import "base/colors";
-@import "base/base";
+// @import "base/colors";
+// @import "base/base";
 // TODO: update typography once it's figured out how it works better
 //@import "base/typography";
 
