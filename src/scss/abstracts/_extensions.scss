@@ -12,9 +12,9 @@
     }
 
     // prepopulate map with breakpoint values
-    $font-style-map: ();
+    $extension-style-map: ();
     @each $key, $value in $mq-breakpoints {
-      $font-style-map: map-set($font-style-map, #{$key}, ());
+      $extension-style-map: map-set($extension-style-map, #{$key}, ());
     }
 
     // build out map with all styles organized by breakpoints and element specifics
@@ -35,7 +35,7 @@
           $prop: get-prop($item);
           $allGood: true;
         } @else if (_starts-with($item, $breakpointId)) {
-          $breakpoint: get-bp($item, $font-style-map);
+          $breakpoint: get-bp($item, $extension-style-map);
           $allGood: true;
         } @else if not($allGood) {
           @warn '\'#{$key}\' is missing identifiers or the variables for them are wrong';
@@ -44,14 +44,14 @@
 
       // if no breakpoint set, assume it's small/general (mobile-first)
       @if not($breakpoint) {
-        $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint, $el, $prop);
+        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $zero-breakpoint, $prop, $el);
       }@else {
-        $font-style-map: generate-style-map($key, $val, $font-style-map, $breakpoint, $el, $prop);
+        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $breakpoint, $prop, $el);
       }
     }
 
     // Heading styles
-    @each $size, $defs in $font-style-map {
+    @each $size, $defs in $extension-style-map {
       //only make a media query for things above small (mobile-first)
       @if $size != $zero-breakpoint {
         @include mq($size) {
@@ -118,8 +118,7 @@
   @return false;
 }
 
-@function generate-style-map($key, $val, $baseMap, $bp, $el:false, $prop:null) {
-
+@function generate-style-map($key, $val, $baseMap, $bp, $prop, $el:false) {
   // is element specific
   @if ($el) {
     // set up element map if there isn't one
