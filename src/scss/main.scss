@@ -1,26 +1,34 @@
-//TODO: move this to settings
+//TODO: move this to settings?
 $prefix: cdr-;
-// Variable overrides
+// Themes
 // NOTE: Make changes to variables in this file rather than modifying
-// global_vars and uncomment the line below
+// base and uncomment the line below
+// -------------------
 // @import "themes/settings";
 
+// Abstracts
+// Functions, Functional Mixins,
+// -------------------
+@import "abstracts/unit";
+@import "abstracts/cast";
+@import "abstracts/htmlelements";
+@import "abstracts/cssproperties";
+@import "abstracts/functions";
+@import "abstracts/maps";
 
-// Utility mixins
-@import "utils/main";
+// Base
+// -------------------
+@import "base/breakpoints";
+@import "base/colors";
+@import "base/base";
+// TODO: update typography once it's figured out how it works better
+//@import "base/typography";
 
 
-
-// TODO: remove
-// Proof of concept for adding font variants for headers
-@import "design/test";
-
-
-
-// NOTE: Any changes/additions/removal of variables in these files
-// should be updated in theme settings as well
-// @import "global/main";
-
+// Extension
+// (variants, customizations of base)
+// -------------------
+@import "extension/typography";
 
 // Use mixins here for easy source order control
 // @include cedar-base-styles;

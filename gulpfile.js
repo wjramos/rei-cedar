@@ -283,7 +283,7 @@ gulp.task( 'theo', function () {
     gulp.src( './src/design/sets/**/*-font.json' )
         .pipe( theo.plugins.transform( 'web' ) )
         .pipe( theo.plugins.format( 'map.scss' ) )
-        .pipe( gulp.dest( './src/scss/design/tokens/' ) );
+        .pipe( gulp.dest( './src/scss/design/' ) );
 } );
 
 

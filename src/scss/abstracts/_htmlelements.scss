@@ -8,6 +8,7 @@ $el-definitions: (
   h-6: 'h6'
 );
 
+// TODO: sassdash for starts with to help enforce standards
 // for finding element declarations in map keys from theo's generated scss maps
 @function get-el($input) {
   @each $defkey, $defval in $el-definitions {

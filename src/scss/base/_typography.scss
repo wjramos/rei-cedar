@@ -1,0 +1,62 @@
+// Base Typography
+// ---------------
+
+// Headers
+// -------
+$header-font-family: $body-font-family !default;
+$header-font-weight: $global-weight-normal !default;
+$header-font-style: normal !default; // e.g. italic
+$header-color: inherit !default;
+$header-lineheight: 1.4 !default;
+$header-margin-bottom: 0.5rem !default;
+$header-text-rendering: optimizeLegibility !default;
+
+// Styles for headings at various screen sizes. Each key is a breakpoint, and each value is a map of heading styles.
+// NOTE: size key names are mapped from $mq-breakpoints
+$header-styles: (
+  small: (
+    'h1': ('font-size': 24, 'line-height': 1),
+    'h2': ('font-size': 20),
+    'h3': ('font-size': 19),
+    'h4': ('font-size': 18),
+    'h5': ('font-size': 17),
+    'h6': ('font-size': 16),
+    'font-family': 'Roboto',
+    'font-weight': 'bold',
+  ),
+  medium: (
+    'h1': ('font-size': 48, 'line-height': 1.5),
+    'h2': ('font-size': 40),
+    'h3': ('font-size': 31),
+    'h4': ('font-size': 25),
+    'h5': ('font-size': 20),
+    'h6': ('font-size': 16),
+  ),
+) !default;
+
+// Mixin for building headers
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $header-font-family;
+  font-style: $header-font-style;
+  font-weight: $header-font-weight;
+  color: $header-color;
+  text-rendering: $header-text-rendering;
+}
+
+// Heading styles
+@each $size, $headers in $header-styles {
+  //only make a media query for things above small
+  @if $size != $zero-breakpoint {
+    @include mq($size) {
+      @include build-mapped-styles($headers);
+    }
+  } @else {
+    @include build-mapped-styles($headers);
+  }
+}
