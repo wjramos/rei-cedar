@@ -11,8 +11,15 @@ $el-definitions: (
 // TODO: sassdash for starts with to help enforce standards
 // for finding element declarations in map keys from theo's generated scss maps
 @function get-el($input) {
+  // remove leading id (i.e. 'pr-')
+  $input: _trim-left($input, $elementId);
+  // remove last - if there is one
+  @if (_ends-with($input, '-')) {
+    $input: str-slice($input, 0, (str-length($input) - 1));
+  }
+
   @each $defkey, $defval in $el-definitions {
-    @if(str-index($input, $defkey)) {
+    @if($input == $defkey) {
       @return $defval;
     }
   }

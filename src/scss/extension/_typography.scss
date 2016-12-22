@@ -9,6 +9,7 @@ $fonts-map: (
     // unique placeholder in case of no defined class
     // TODO: better idea? maybe use font-name?
     $fullClass: class-#{unique-id()};
+    // TODO/QUESTION: do we want other reserved keys like class?
     // if class defined -> set variable and remove it so it's only css properties left
     @if (map-has-key($map, 'class')) {
       $className: map-get($map, class);
@@ -47,8 +48,6 @@ $fonts-map: (
         }
       }
 
-      @debug $el, $prop, $breakpoint;
-
       // if no breakpoint set, assume it's small/general (mobile-first)
       @if not($breakpoint) {
         $font-style-map: generate-style-map($key, $val, $font-style-map, $zero-breakpoint, $el, $prop);
@@ -81,7 +80,7 @@ $fonts-map: (
   @each $key, $val in $defs {
     // if a map, chain a class and get the values
     @if type-of($val) == map {
-      &.#{$key} {
+      &.#{$prefix}#{$key} {
         @include build-mapped-styles($val);
       }
     }

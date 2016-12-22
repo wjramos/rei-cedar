@@ -7,12 +7,19 @@
 }
 
 @function get-bp($input, $map) {
+  // remove leading id (i.e. 'pr-')
+  $input: _trim-left($input, $breakpointId);
+  // remove last - if there is one
+  @if (_ends-with($input, '-')) {
+    $input: str-slice($input, 0, (str-length($input) - 1));
+  }
+
   @each $name, $val in $map {
-    @if(str-index($input, $name)) {
+    @if ($input == $name) {
       @return $name;
     }
   }
-  @debug 'Nothing matched in element definitions: \'#{$input}\'';
+  @debug 'Nothing matched in breakpoint definitions: \'#{$input}\'';
   @return false;
 }
 
