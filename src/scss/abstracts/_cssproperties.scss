@@ -1,7 +1,14 @@
 // TODO: add more properties
 // TODO: add types for casting values associated with these for testing?
-$prop-defs: font-size, font-weight, font-family, line-height,
-  margin-top, margin-bottom, color;
+$prop-defs:(
+  font-size: "number",
+  font-weight: "number",
+  font-family: "string",
+  line-height: "number",
+  margin-top: "number",
+  margin-bottom: "number",
+  color: "color",
+);
 
 
 // TODO: combine with get-el and get-bp?
@@ -17,7 +24,7 @@ $prop-defs: font-size, font-weight, font-family, line-height,
   }
 
   // see if resulting string is in our definitions above
-  @each $def in $prop-defs {
+  @each $def, $type in $prop-defs {
     @if ($input == $def) {
       @return $def;
     }
