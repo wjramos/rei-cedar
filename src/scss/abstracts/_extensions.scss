@@ -2,11 +2,12 @@
 // @param {Map} $variantMap - map created by theo
 // @return {scss} ouputs the css defined in the map
 @mixin create-extension-styles($variantMap) {
-  @each $font-name, $map in $variantMap {
+  @each $variantName, $map in $variantMap {
     // unique placeholder in case of no defined class
-    // TODO: better idea?
+    // TODO/QUESTION: better idea?
     $fullClass: class-#{unique-id()};
-    // TODO/QUESTION: do we want other reserved keys like class?
+
+    // TODO/QUESTION: do we want other reserved keys like/besides class?
     // if class defined -> set variable and remove it so it's only css properties left
     @if (map-has-key($map, 'class')) {
       $className: map-get($map, class);
