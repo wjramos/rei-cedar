@@ -1,9 +1,9 @@
 //TODO: move this to settings?
-$prefix: cdr-;
-$varDelimiter: '00'; //alpha numeric only (because of theo)
-$elementId: 'el-'; //alpha numeric only (because of theo)
-$propertyId: 'pr-'; //alpha numeric only (because of theo)
-$breakpointId: 'bp-'; //alpha numeric only (because of theo)
+$prefix: 'cdr-';
+$varDelimiter: '--';
+$elementDef: '{ }';
+$propertyDef: '( )';
+$breakpointDef: '[ ]';
 
 // Themes
 // NOTE: Make changes to variables in this file rather than modifying

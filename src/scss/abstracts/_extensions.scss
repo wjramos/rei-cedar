@@ -4,7 +4,7 @@
 @mixin create-extension-styles($variantMap) {
   @each $font-name, $map in $variantMap {
     // unique placeholder in case of no defined class
-    // TODO: better idea? maybe use font-name?
+    // TODO: better idea?
     $fullClass: class-#{unique-id()};
     // TODO/QUESTION: do we want other reserved keys like class?
     // if class defined -> set variable and remove it so it's only css properties left
@@ -28,20 +28,18 @@
       $breakpoint: false;
       @each $item in $split {
         $allGood: false; // hack because sass can't break loops
-        // remove leading - to normalize for _starts-with
-        $item: _trim-left($item, '-');
 
-        @if (_starts-with($item, $elementId)) {
-          $el: get-el($item);
+        @if (is-def($item, $elementDef)) {
+          $el: get-el(strip-def($item, $elementDef));
           $allGood: true;
-        } @else if (_starts-with($item, $propertyId)) {
-          $prop: get-prop($item);
+        } @else if (is-def($item, $propertyDef)) {
+          $prop: get-prop(strip-def($item, $propertyDef));
           $allGood: true;
-        } @else if (_starts-with($item, $breakpointId)) {
-          $breakpoint: get-bp($item, $extension-style-map);
+        } @else if (is-def($item, $breakpointDef)) {
+          $breakpoint: get-bp(strip-def($item, $breakpointDef), $extension-style-map);
           $allGood: true;
         } @else if not($allGood) {
-          @warn '\'#{$key}\' is missing identifiers or the variables for them are wrong';
+          @warn '\'#{$key}\' did not match formatting of defined types: {<element>} (<property>) [<breakpoint>]';
         }
       }
 
@@ -98,19 +96,45 @@
   }
 }
 
-// TODO: combine with get-el and get-prop?
+// Check if definition is properly formatted
+// @param {string} $input - map key partial; i.e. {h1}
+// @param {string} $delim - space separated symbols for grouping; i.e. { }
+// @return {boolean} is or isn't formatted as a valid definition
+@function is-def($input, $delim) {
+  // split space separated definition
+  $delims: _split($delim, ' ');
+  $begin: _first($delims);
+  $end: _last($delims);
+
+  // verify valid formatting as definition
+  @if (_starts-with($input, $begin)) {
+    @if (_ends-with($input, $end)) {
+      @return true;
+    }
+  }
+
+  @return false;
+}
+
+// Strip delimiters from definitions
+// @param {string} $input - parsed breakpoint partial
+// @param {string} $delim - space separated delimiters
+// @return {string} $out - delimiter stripped definition
+@function strip-def($input, $delim) {
+  // split space separated definition
+  $delims: _split($delim, ' ');
+
+  // remove delimiters to get raw value
+  $out: _trim($input, $delims);
+
+  @return $out;
+}
+
 // Match breakpoints to verify they are defined
 // @param {string} $input - parsed breakpoint partial
 // @param {Map} $map - map with breakpoints defined
 // @return {string} $name - matched known defined breakpoint value or false
 @function get-bp($input, $map) {
-  // remove leading id (i.e. 'pr-')
-  $input: _trim-left($input, $breakpointId);
-  // remove last - if there is one
-  @if (_ends-with($input, '-')) {
-    $input: str-slice($input, 0, (str-length($input) - 1));
-  }
-
   @each $name, $val in $map {
     @if ($input == $name) {
       @return $name;

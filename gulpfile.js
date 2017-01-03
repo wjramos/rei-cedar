@@ -46,6 +46,7 @@ var globify = require( 'require-globify' );
 var bourbon = require( 'node-bourbon' );
 var browserSync = require( 'browser-sync' ).create();
 var theo = require( 'theo' );
+var _ = require( 'lodash' );
 
 
 //       /$$$$$$                       /$$$$$$  /$$
@@ -273,6 +274,37 @@ gulp.task( 'sass', function () {
         .pipe( gulp.dest( './scss_out' ) );
 } );
 // Theo stuff
+const cleanOutput = ( output ) =>
+    output
+    .replace( /^ {4}/gm, '' )
+    .replace( /^\s*\n/gm, '' )
+    .trim();
+
+theo.registerFormat( 'cedar.scss', ( json, options ) => {
+    options = _.defaults( {}, options, {
+        nameSuffix: '-map'
+    } )
+    let items = Object.keys( json.props ).map( prop =>
+        `"${json.props[prop].name}": (${json.props[prop].value})`
+    ).join( ',\n  ' )
+    let basename = path.basename(
+        options.path, path.extname( options.path )
+    ).replace( /\..*/g, '' )
+    let name = `${basename}${options.nameSuffix}`
+    if ( typeof options.name === 'function' ) {
+        let n = options.name( basename, options.path )
+        if ( typeof n === 'string' ) {
+            name = n
+        }
+    }
+    let output = `
+    $${name}: (
+      ${items}
+    );
+  `
+    return cleanOutput( output )
+} )
+
 // TODO: make it work with real paths after PoC
 gulp.task( 'theo', function () {
     gulp.src( './src/design/props.json' )
@@ -282,7 +314,7 @@ gulp.task( 'theo', function () {
 
     gulp.src( './src/design/sets/**/*-font.json' )
         .pipe( theo.plugins.transform( 'web' ) )
-        .pipe( theo.plugins.format( 'map.scss' ) )
+        .pipe( theo.plugins.format( 'cedar.scss' ) )
         .pipe( gulp.dest( './src/scss/design/' ) );
 } );
 

@@ -3,15 +3,15 @@
     "category": "sentinel-font"
   },
   "props": {
-    "el-h200pr-font-size00bp-small": {
+    "{h2}--(font-size)--[small]": {
       "value": "1.1rem",
       "type": "number"
     },
-    "el-h200pr-font-weight00bp-small": {
+    "{h2}--(font-weight)--[small]": {
       "value": "normal",
       "type": "string"
     },
-    "el-h200pr-font-size00bp-medium": {
+    "{h2}--(font-size)--[medium]": {
       "value": "1.2rem",
       "type": "number"
     }

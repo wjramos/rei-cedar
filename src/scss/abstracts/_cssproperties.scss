@@ -11,25 +11,16 @@ $prop-defs:(
 );
 
 
-// TODO: combine with get-el and get-bp?
 // Match css properties from style map to verify they are defined
 // @param {string} $input - parsed css property partial
 // @return {string} $def - matched css property or null
 @function get-prop($input) {
-  // remove leading id (i.e. 'pr-')
-  $input: _trim-left($input, $propertyId);
-  // remove last - if there is one
-  @if (_ends-with($input, '-')) {
-    $input: str-slice($input, 0, (str-length($input) - 1));
-  }
-
-  // see if resulting string is in our definitions above
   @each $def, $type in $prop-defs {
     @if ($input == $def) {
       @return $def;
     }
   }
 
-  @warn 'Property definitions do not contain: \'#{$key}\'';
+  @warn 'Nothing matched in css property definitions: \'#{$input}\'';
   @return null;
 }

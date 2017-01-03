@@ -1,11 +1,5 @@
 // TODO: add more elements
 $el-definitions: (
-  h-1: 'h1',
-  h-2: 'h2',
-  h-3: 'h3',
-  h-4: 'h4',
-  h-5: 'h5',
-  h-6: 'h6',
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',
@@ -14,23 +8,15 @@ $el-definitions: (
   h6: 'h6',
 );
 
-// TODO: combine with get-bp and get-prop?
 // Match HTML elements from style map to verify they are defined
 // @param {string} $input - parsed HTML element partial
 // @return {string} $defval - known good HTML selector from definitions
 @function get-el($input) {
-  // remove leading id (i.e. 'pr-')
-  $input: _trim-left($input, $elementId);
-  // remove last - if there is one
-  @if (_ends-with($input, '-')) {
-    $input: str-slice($input, 0, (str-length($input) - 1));
-  }
-
   @each $defkey, $defval in $el-definitions {
     @if($input == $defkey) {
       @return $defval;
     }
   }
-  @debug 'Nothing matched in element definitions: \'#{$input}\'';
+  @warn 'Nothing matched in element definitions: \'#{$input}\'';
   @return false;
 }
