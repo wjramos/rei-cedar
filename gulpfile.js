@@ -47,6 +47,7 @@ var bourbon = require( 'node-bourbon' );
 var browserSync = require( 'browser-sync' ).create();
 var theo = require( 'theo' );
 var _ = require( 'lodash' );
+var cssnano = require( 'gulp-cssnano' );
 
 
 //       /$$$$$$                       /$$$$$$  /$$
@@ -271,6 +272,7 @@ gulp.task( 'sass', function () {
             browsers: [ 'last 2 versions' ]
         } ) ] ) )
         .pipe( sourcemaps.write() )
+        // .pipe( cssnano() )
         .pipe( gulp.dest( './scss_out' ) );
 } );
 // Theo stuff
