@@ -27,10 +27,10 @@ $cdr-header-styles: (
       font-style: $cdr-header-font-style,
       font-weight: $cdr-header-font-weight,
       font-family: $cdr-header-font-family,
+      '.--explore': (
+        'text-transform': uppercase
+      )
     ),
-    '.--explore': (
-      'text-transform': uppercase
-    )
   )
 ) !default;
 

@@ -28,9 +28,13 @@
       "value": "normal",
       "type": "string"
     },
-    "(font-size)--[medium]": {
+    "(font-size)||[medium]": {
       "value": "8.976rem",
       "type": "number"
+    },
+    "{.--red}||(color)": {
+      "value": "red",
+      "type": "color"
     }
   },
 

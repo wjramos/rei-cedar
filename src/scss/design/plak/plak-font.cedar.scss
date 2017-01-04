@@ -5,5 +5,6 @@ $plak-font-map: (
   "(font-size)": (5.052rem),
   "(text-transform)": (uppercase),
   "(font-weight)": (normal),
-  "(font-size)--[medium]": (8.976rem)
+  "(font-size)||[medium]": (8.976rem),
+  "{.--red}||(color)": (rgb(255, 0, 0))
 );

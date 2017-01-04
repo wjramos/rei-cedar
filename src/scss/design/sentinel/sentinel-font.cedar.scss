@@ -1,14 +1,14 @@
 $sentinel-font-map: (
-  "{h1}--(font-size)--[small]": (1.8rem),
-  "{h1}--(font-weight)": (normal),
-  "{h1}--(font-size)--[medium]": (2rem),
-  "{h1}--(font-weight)--[medium]": (bold),
-  "{h1}--(color)--[large]": (rgb(255, 0, 0)),
-  "{h2}--(font-size)--[small]": (1.1rem),
-  "{h2}--(font-weight)--[small]": (normal),
-  "{h2}--(font-size)--[medium]": (1.2rem),
+  "{h1}||(font-size)||[small]": (1.8rem),
+  "{h1}||(font-weight)": (normal),
+  "{h1}||(font-size)||[medium]": (2rem),
+  "{h1}||(font-weight)||[medium]": (bold),
+  "{h1}||(color)||[large]": (rgb(255, 0, 0)),
+  "{h2}||(font-size)||[small]": (1.1rem),
+  "{h2}||(font-weight)||[small]": (normal),
+  "{h2}||(font-size)||[medium]": (1.2rem),
   "class": (header-sentinel),
   "(font-family)": (HCo Sentinel),
   "(line-height)": (1),
-  "(line-height)--[medium]": (1.5)
+  "(line-height)||[medium]": (1.5)
 );
