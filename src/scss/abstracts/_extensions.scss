@@ -85,7 +85,7 @@
   @each $key, $val in $defs {
     // if a map, chain a class and get the values
     @if type-of($val) == map {
-      &.-#{$key} {
+      &#{$key} {
         @include build-mapped-styles($val);
       }
     }

@@ -1,0 +1,39 @@
+{
+  "global": {
+    "category": "plak-font"
+  },
+
+  "props": {
+    "class": {
+      "value": "'header.-announce'",
+      "type": "string"
+    },
+    "(font-family)": {
+      "value": "Plak Black Condensed, $body-font-family",
+      "type": "string"
+    },
+    "(line-height)": {
+      "value": "1.125",
+      "type": "number"
+    },
+    "(font-size)": {
+      "value": "5.052rem",
+      "type": "number"
+    },
+    "(text-transform)": {
+      "value": "uppercase",
+      "type": "string"
+    },
+    "(font-weight)": {
+      "value": "normal",
+      "type": "string"
+    },
+    "(font-size)--[medium]": {
+      "value": "8.976rem",
+      "type": "number"
+    }
+  },
+
+  "imports": [
+  ]
+}

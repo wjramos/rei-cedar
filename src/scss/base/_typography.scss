@@ -18,15 +18,17 @@ $header-text-rendering: optimizeLegibility !default;
 // NOTE: size key names are mapped from $mq-breakpoints
 $cdr-header-styles: (
   small: (
-    font-family: $cdr-header-font-family,
-    font-style: $cdr-header-font-style,
-    font-weight: $cdr-header-font-weight,
     color: $cdr-header-color,
     text-rendering: $header-text-rendering,
     margin-bottom: $cdr-header-margin-bottom,
     margin-top: $cdr-header-margin-top,
-    line-height: $cdr-header-line-height,
-    'explore': (
+    '.-core': (
+      line-height: $cdr-header-line-height,
+      font-style: $cdr-header-font-style,
+      font-weight: $cdr-header-font-weight,
+      font-family: $cdr-header-font-family,
+    ),
+    '.--explore': (
       'text-transform': uppercase
     )
   )
@@ -34,19 +36,19 @@ $cdr-header-styles: (
 
 $individual-header-styles: (
   small: (
-    'h1': ('font-size': 2.843rem),
-    'h2': ('font-size': 2.843rem),
-    'h3': ('font-size': 2.133rem),
-    'h4': ('font-size': 1.6rem),
-    'h5': ('font-size': 1.6rem),
-    'h6': ('font-size': 1.6rem),
+    '._h1': ('font-size': 2.843rem),
+    '._h2': ('font-size': 2.843rem),
+    '._h3': ('font-size': 2.133rem),
+    '._h4': ('font-size': 1.6rem),
+    '._h5': ('font-size': 1.6rem),
+    '._h6': ('font-size': 1.6rem),
   ),
   medium: (
-    'h1': ('font-size': 3.79rem),
+    '._h1': ('font-size': 3.79rem),
   ),
   xlarge: (
-    'h1': ('font-size': 5.025rem),
-    'h2': ('font-size': 3.79rem),
+    '._h1': ('font-size': 5.025rem),
+    '._h2': ('font-size': 3.79rem),
   ),
 ) !default;
 

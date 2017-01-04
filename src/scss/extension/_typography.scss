@@ -1,7 +1,7 @@
-@import "design/sentinel/sentinel-font.cedar.scss";
+@import "design/plak/plak-font.cedar.scss";
 
 $fonts-map: (
-"sentinel": $sentinel-font-map
+"plak": $plak-font-map
 );
 
 @include create-extension-styles($fonts-map);
