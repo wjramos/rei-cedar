@@ -21,8 +21,6 @@ $header-styles: (
     'h4': ('font-size': 18),
     'h5': ('font-size': 17),
     'h6': ('font-size': 16),
-    'font-family': 'Roboto',
-    'font-weight': 'bold',
   ),
   medium: (
     'h1': ('font-size': 48, 'line-height': 1.5),
@@ -31,32 +29,28 @@ $header-styles: (
     'h4': ('font-size': 25),
     'h5': ('font-size': 20),
     'h6': ('font-size': 16),
+    'font-weight': 'bold',
   ),
 ) !default;
 
-// Mixin for building headers
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.#{$prefix}header-core {
+  // TODO: move these properties to the map above
   font-family: $header-font-family;
   font-style: $header-font-style;
   font-weight: $header-font-weight;
   color: $header-color;
   text-rendering: $header-text-rendering;
-}
 
-// Heading styles
-@each $size, $headers in $header-styles {
-  //only make a media query for things above small
-  @if $size != $zero-breakpoint {
-    @include mq($size) {
+  // Heading styles
+  @each $size, $headers in $header-styles {
+    //only make a media query for things above small
+    @if $size != $zero-breakpoint {
+      @include mq($size) {
+        @include build-mapped-styles($headers);
+      }
+    } @else {
       @include build-mapped-styles($headers);
     }
-  } @else {
-    @include build-mapped-styles($headers);
   }
 }

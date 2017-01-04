@@ -1,7 +1,7 @@
 //TODO: move this to settings?
 $prefix: 'cdr-';
 $varDelimiter: '--';
-$elementDef: '{ }';
+$modifierDef: '{ }';
 $propertyDef: '( )';
 $breakpointDef: '[ ]';
 
@@ -17,7 +17,8 @@ $breakpointDef: '[ ]';
 @import "./node_modules/sassdash/scss/sassdash";
 @import "abstracts/unit";
 @import "abstracts/cast";
-@import "abstracts/htmlelements";
+// TODO: remove if not going to use element selectors
+// @import "abstracts/htmlelements";
 @import "abstracts/cssproperties";
 @import "abstracts/mapFunctions";
 @import "abstracts/extensions";
@@ -26,16 +27,11 @@ $breakpointDef: '[ ]';
 // -------------------
 @import "base/breakpoints";
 // @import "base/colors";
-// @import "base/base";
-// TODO: update typography once it's figured out how it works better
-//@import "base/typography";
+@import "base/base";
+@import "base/typography";
 
 
 // Extension
 // (variants, customizations of base)
 // -------------------
 @import "extension/typography";
-
-// Use mixins here for easy source order control
-// @include cedar-base-styles;
-// @include cedar-typography;

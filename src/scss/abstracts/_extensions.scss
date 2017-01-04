@@ -24,14 +24,16 @@
     // build out map with all styles organized by breakpoints and element specifics
     @each $key, $val in $map {
       $split: _split($key, $varDelimiter);
-      $el: false;
+      $mod: false;
       $prop: false;
       $breakpoint: false;
       @each $item in $split {
         $allGood: false; // hack because sass can't break loops
 
-        @if (is-def($item, $elementDef)) {
-          $el: get-el(strip-def($item, $elementDef));
+        @if (is-def($item, $modifierDef)) {
+          // QUESTION: do we need element limiting?
+          // $el: get-el(strip-def($item, $modifierDef));
+          $mod: strip-def($item, $modifierDef);
           $allGood: true;
         } @else if (is-def($item, $propertyDef)) {
           $prop: get-prop(strip-def($item, $propertyDef));
@@ -46,23 +48,21 @@
 
       // if no breakpoint set, assume it's small/general (mobile-first)
       @if not($breakpoint) {
-        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $zero-breakpoint, $prop, $el);
+        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $zero-breakpoint, $prop, $mod);
       }@else {
-        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $breakpoint, $prop, $el);
+        $extension-style-map: generate-style-map($key, $val, $extension-style-map, $breakpoint, $prop, $mod);
       }
     }
 
     // Heading styles
-    @each $size, $defs in $extension-style-map {
-      //only make a media query for things above small (mobile-first)
-      @if $size != $zero-breakpoint {
-        @include mq($size) {
-          .#{$fullClass} {
+    .#{$fullClass} {
+      @each $size, $defs in $extension-style-map {
+        //only make a media query for things above small (mobile-first)
+        @if $size != $zero-breakpoint {
+          @include mq($size) {
             @include build-mapped-styles($defs);
           }
-        }
-      } @else {
-        .#{$fullClass} {
+        } @else {
           @include build-mapped-styles($defs);
         }
       }
@@ -78,7 +78,7 @@
   @each $key, $val in $defs {
     // if a map, chain a class and get the values
     @if type-of($val) == map {
-      &.#{$prefix}#{$key} {
+      &.-#{$key} {
         @include build-mapped-styles($val);
       }
     }
@@ -151,21 +151,21 @@
 // @param {map} $baseMap - the style map that we will be adding to
 // @param {string} $bp - breakpoint key for nested map (parsed from key beforehand)
 // @param {string} $prop - css property (parsed from key beforehand)
-// @param *optional {string} $el - html element (parsed from key beforehand)
+// @param *optional {string} $mod - modifier class (parsed from key beforehand)
 // @return {map} $returnMap - Updated map
-@function generate-style-map($key, $val, $baseMap, $bp, $prop, $el:false) {
-  // is element specific
-  @if ($el) {
+@function generate-style-map($key, $val, $baseMap, $bp, $prop, $mod:false) {
+  // is a modifier
+  @if ($mod) {
     // set up element map if there isn't one
-    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$el})) {
-      $newElMap: map-deep-set($baseMap, #{$bp}, (#{$el}:()));
-      $baseMap: map-deep-merge($baseMap, $newElMap);
+    @if not(map-has-nested-keys($baseMap, #{$bp}, #{$mod})) {
+      $newModMap: map-deep-set($baseMap, #{$bp}, (#{$mod}:()));
+      $baseMap: map-deep-merge($baseMap, $newModMap);
     }
-    $newMap: map-deep-set($baseMap, #{$bp}, #{$el}, #{$prop}, #{$val});
+    $newMap: map-deep-set($baseMap, #{$bp}, #{$mod}, #{$prop}, #{$val});
     $returnMap: map-deep-merge($baseMap, $newMap);
     @return $returnMap;
   }
-  // not element specific
+  // not a modifier
   @else {
     $returnMap: map-deep-set($baseMap, #{$bp}, #{$prop}, #{$val});
     @return $returnMap;
