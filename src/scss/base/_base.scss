@@ -1,4 +1,5 @@
 // Base Settings and resets
+// NOTE: some variables are in abstracts/globals because the utils use them too
 // ---------------
 
 // Global sizing
@@ -12,13 +13,13 @@ $global-radius: 0 !default;
 
 // Global color definitions
 $body-background: #fff !default;
-$body-font-color: #000 !default;
+$body-font-color: #222 !default;
 
 // Global Typography
 // -----------------
-$global-font-size: 100% !default;
 $global-lineheight: 1.5 !default;
-$body-font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$body-font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$body-font-size: 1.6rem;
 $body-antialiased: true !default;
 $global-weight-normal: normal !default;
 $global-weight-bold: bold !default;
@@ -42,6 +43,7 @@ body {
   padding: 0;
   background: $body-background;
   font-family: $body-font-family;
+  font-size: $body-font-size;
   font-weight: $global-weight-normal;
   line-height: $global-lineheight;
   color: $body-font-color;

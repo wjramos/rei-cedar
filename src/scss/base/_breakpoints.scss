@@ -1,9 +1,8 @@
 // Adapted from sass-mq (https://github.com/mcaskill/sass-mq)
-// $global-font-size: 100% !default;
 
-/// Base font size on the `<body>` element
+/// Base font size on the `<html>` element
 /// @type Number (unit)
-$mq-base-font-size: $global-font-size;
+$mq-base-font-size: 100%; // leave as 100% to make pixel translation correct
 // Convert to px if a %
 @if unit($mq-base-font-size) == '%' {
     $mq-base-font-size: ($mq-base-font-size / 100%) * 16px;
@@ -37,8 +36,8 @@ $mq-responsive: true !default;
 /// @link https://github.com/mcaskill/sass-mq#seeing-the-currently-active-breakpoint Full documentation and examples
 $mq-breakpoints: (
   small: 0px,
-  medium: 640px,
-  large: 1024px,
+  medium: 768px,
+  large: 992px,
   xlarge: 1200px,
   xxlarge: 1440px,
 ) !default;

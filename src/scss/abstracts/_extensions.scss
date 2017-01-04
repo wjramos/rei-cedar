@@ -56,22 +56,29 @@
 
     // Heading styles
     .#{$fullClass} {
-      @each $size, $defs in $extension-style-map {
-        //only make a media query for things above small (mobile-first)
-        @if $size != $zero-breakpoint {
-          @include mq($size) {
-            @include build-mapped-styles($defs);
-          }
-        } @else {
-          @include build-mapped-styles($defs);
-        }
-      }
+      @include parse-mapped-styles($extension-style-map);
     }
 
   }
 }
 
-// Parses correctly formatted style maps, recurses for nested maps
+// Parses mapped styles (also see build-mapped-styles mixin below)
+// @param {Map} $map - Map with breakpoint and style definitions
+// @returns - none (see build-mapped-styles mixin below)
+@mixin parse-mapped-styles($map) {
+  @each $key, $value in $map {
+    //only make a media query for things above small (mobile-first)
+    @if $key != $zero-breakpoint {
+      @include mq($key) {
+        @include build-mapped-styles($value);
+      }
+    } @else {
+      @include build-mapped-styles($value);
+    }
+  }
+}
+
+// Generates CSS for correctly formatted style maps, recurses for nested maps
 // @param {Map} $defs - Map, or nested map, of styles
 // @returns {scss} outputs the css defined in the map
 @mixin build-mapped-styles($defs) {

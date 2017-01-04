@@ -15,6 +15,7 @@ $breakpointDef: '[ ]';
 // Functions, Functional Mixins,
 // -------------------
 @import "./node_modules/sassdash/scss/sassdash";
+@import "abstracts/globals";
 @import "abstracts/unit";
 @import "abstracts/cast";
 // TODO: remove if not going to use element selectors
@@ -25,13 +26,15 @@ $breakpointDef: '[ ]';
 
 // Base
 // -------------------
+@import "base/reset";
+@import "base/fonts";
+@import "base/base";
 @import "base/breakpoints";
 // @import "base/colors";
-@import "base/base";
 @import "base/typography";
 
 
 // Extension
 // (variants, customizations of base)
 // -------------------
-@import "extension/typography";
+// @import "extension/typography";

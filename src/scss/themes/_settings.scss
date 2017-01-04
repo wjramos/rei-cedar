@@ -9,59 +9,74 @@
 // 1. Global
 // ---------
 
-$global-font-size: 100%;
 $global-width: rem-calc(1200);
+$global-margin: 1rem;
+$global-padding: 1rem;
+$global-radius: 0;
+$body-background: #fff;
+$body-font-color: #222;
+$global-font-size: 62.5%;
 $global-lineheight: 1.5;
+$body-font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$body-font-size: 1.6rem;
+$body-antialiased: true;
+$global-weight-normal: normal;
+$global-weight-bold: bold;
 $cedar-palette: (
   primary: #1779ba,
   secondary: #767676,
 );
-$body-background: #fff;
-$body-font-color: #000;
-$body-font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$body-antialiased: true;
-$global-margin: 1rem;
-$global-padding: 1rem;
-$global-weight-normal: normal;
-$global-weight-bold: bold;
-$global-radius: 0;
 
 // 2. Breakpoints
 // --------------
 
 $mq-breakpoints: (
   small: 0px,
-  medium: 640px,
-  large: 1024px,
+  medium: 768px,
+  large: 992px,
   xlarge: 1200px,
   xxlarge: 1440px,
 );
 
 // 3. Base Typography
 // ------------------
-$header-font-family: $body-font-family;
-$header-font-weight: $global-weight-normal;
-$header-font-style: normal; // e.g. italic
-$header-color: inherit;
-$header-lineheight: 1.4;
-$header-margin-bottom: 0.5rem;
+$cdr-header-class: 'header-core';
+$cdr-header-font-family: HCo Sentinel, $body-font-family;
+$cdr-header-font-weight: 600;
+$cdr-header-font-style: normal; // e.g. italic
+$cdr-header-color: inherit;
+$cdr-header-line-height: 1.333;
+$cdr-header-margin-bottom: 1.2rem;
+$cdr-header-margin-top: 0;
 $header-text-rendering: optimizeLegibility;
 
-$header-styles: (
+$cdr-header-styles: (
   small: (
-    'h1': ('font-size': 24),
-    'h2': ('font-size': 20),
-    'h3': ('font-size': 19),
-    'h4': ('font-size': 18),
-    'h5': ('font-size': 17),
-    'h6': ('font-size': 16)
+    font-family: $cdr-header-font-family,
+    font-style: $cdr-header-font-style,
+    font-weight: $cdr-header-font-weight,
+    color: $cdr-header-color,
+    text-rendering: $header-text-rendering,
+    margin-bottom: $cdr-header-margin-bottom,
+    margin-top: $cdr-header-margin-top,
+    line-height: $cdr-header-line-height,
+  )
+);
+
+$individual-header-styles: (
+  small: (
+    'h1': ('font-size': 2.843rem),
+    'h2': ('font-size': 2.843rem),
+    'h3': ('font-size': 2.133rem),
+    'h4': ('font-size': 1.6rem),
+    'h5': ('font-size': 1.6rem),
+    'h6': ('font-size': 1.6rem),
   ),
   medium: (
-    'h1': ('font-size': 48),
-    'h2': ('font-size': 40),
-    'h3': ('font-size': 31),
-    'h4': ('font-size': 25),
-    'h5': ('font-size': 20),
-    'h6': ('font-size': 16)
+    'h1': ('font-size': 3.79rem),
+  ),
+  large: (
+    'h1': ('font-size': 5.025rem),
+    'h2': ('font-size': 3.79rem),
   ),
 );
