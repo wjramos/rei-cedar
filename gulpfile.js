@@ -291,12 +291,12 @@ theo.registerFormat( 'cedar.scss', ( json, options ) => {
     ).join( ',\n  ' )
     let basename = path.basename(
         options.path, path.extname( options.path )
-    ).replace( /\..*/g, '' )
-    let name = `${basename}${options.nameSuffix}`
+    ).replace( /\..*/g, '' );
+    let name = `${basename}${options.nameSuffix}`;
     if ( typeof options.name === 'function' ) {
-        let n = options.name( basename, options.path )
+        let n = options.name( basename, options.path );
         if ( typeof n === 'string' ) {
-            name = n
+            name = n;
         }
     }
     let output = `
@@ -317,6 +317,9 @@ gulp.task( 'theo', function () {
     gulp.src( './src/design/sets/**/*-font.json' )
         .pipe( theo.plugins.transform( 'web' ) )
         .pipe( theo.plugins.format( 'cedar.scss' ) )
+        .pipe( rename( {
+            prefix: '_'
+        } ) )
         .pipe( gulp.dest( './src/scss/design/' ) );
 } );
 
