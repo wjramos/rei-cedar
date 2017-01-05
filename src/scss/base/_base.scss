@@ -8,10 +8,12 @@ $global-width: rem-calc(1200) !default;
 // Global spacing
 $global-margin: 1rem !default;
 $global-padding: 1rem !default;
+$body-margin: 0 !default;
+$body-padding: 0 !default;
 
 $global-radius: 0 !default;
 
-// Global color definitions
+// Body color definitions
 $body-background: #fff !default;
 $body-font-color: #222 !default;
 
@@ -39,8 +41,8 @@ html {
 
 // Default body styles
 body {
-  margin: 0;
-  padding: 0;
+  margin: $body-margin;
+  padding: $body-padding;
   background: $body-background;
   font-family: $body-font-family;
   font-size: $body-font-size;
