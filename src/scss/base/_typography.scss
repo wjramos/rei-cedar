@@ -4,7 +4,7 @@
 // Headers
 // -------
 $cdr-header-class: 'header';
-$cdr-header-font-fallback: quote($body-font-family) !default;
+$cdr-header-font-fallback: quote($cdr-body-font-family) !default;
 $cdr-header-font-family: HCo Sentinel, $cdr-header-font-fallback !default;
 $cdr-header-font-weight: 600 !default;
 $cdr-header-font-style: normal !default; // e.g. italic
@@ -16,7 +16,7 @@ $cdr-header-text-rendering: optimizeLegibility !default;
 
 // Styles for headings at various screen sizes.
 // Each key is a breakpoint, and each value is a map of heading styles.
-// NOTE: size key names are mapped from $mq-breakpoints
+// NOTE: size key names are mapped from $cdr-mq-breakpoints
 $cdr-header-styles: (
   small: (
     color: $cdr-header-color,
@@ -35,7 +35,7 @@ $cdr-header-styles: (
   )
 ) !default;
 
-$individual-header-styles: (
+$cdr-individual-header-styles: (
   small: (
     '._h1': ('font-size': 2.843rem),
     '._h2': ('font-size': 2.843rem),

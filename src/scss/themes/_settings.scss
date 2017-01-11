@@ -9,22 +9,22 @@
 // 1. Global
 // ---------
 
-$global-width: rem-calc(1200);
-$global-margin: 1rem;
-$global-padding: 1rem;
-$body-margin: 0;
-$body-padding: 0;
-$global-radius: 0;
-$body-background: #fff;
-$body-font-color: #222;
-$global-font-size: 62.5%;
-$global-lineheight: 1.5;
-$body-font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$body-font-size: 1.6rem;
-$body-antialiased: true;
-$global-weight-normal: normal;
-$global-weight-bold: bold;
-$cedar-palette: (
+$cdr-global-width: rem-calc(1200);
+$cdr-global-margin: 1rem;
+$cdr-global-padding: 1rem;
+$cdr-body-margin: 0;
+$cdr-body-padding: 0;
+$cdr-global-radius: 0;
+$cdr-body-background: #fff;
+$cdr-body-font-color: #222;
+$cdr-global-font-size: 62.5%;
+$cdr-global-lineheight: 1.5;
+$cdr-body-font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$cdr-body-font-size: 1.6rem;
+$cdr-body-antialiased: true;
+$cdr-global-weight-normal: normal;
+$cdr-global-weight-bold: bold;
+$cdr-colors: (
   primary: #1779ba,
   secondary: #767676,
 );
@@ -32,7 +32,7 @@ $cedar-palette: (
 // 2. Breakpoints
 // --------------
 
-$mq-breakpoints: (
+$cdr-mq-breakpoints: (
   small: 0px,
   medium: 768px,
   large: 992px,
@@ -43,7 +43,7 @@ $mq-breakpoints: (
 // 3. Base Typography
 // ------------------
 $cdr-header-class: 'header-core';
-$cdr-header-font-fallback: quote($body-font-family);
+$cdr-header-font-fallback: quote($cdr-body-font-family);
 $cdr-header-font-family: HCo Sentinel, $cdr-header-font-fallback;
 $cdr-header-font-weight: 600;
 $cdr-header-font-style: normal; // e.g. italic
@@ -66,20 +66,20 @@ $cdr-header-styles: (
   )
 );
 
-$individual-header-styles: (
+$cdr-individual-header-styles: (
   small: (
-    'h1': ('font-size': 2.843rem),
-    'h2': ('font-size': 2.843rem),
-    'h3': ('font-size': 2.133rem),
-    'h4': ('font-size': 1.6rem),
-    'h5': ('font-size': 1.6rem),
-    'h6': ('font-size': 1.6rem),
+    '._h1': ('font-size': 2.843rem),
+    '._h2': ('font-size': 2.843rem),
+    '._h3': ('font-size': 2.133rem),
+    '._h4': ('font-size': 1.6rem),
+    '._h5': ('font-size': 1.6rem),
+    '._h6': ('font-size': 1.6rem),
   ),
   medium: (
-    'h1': ('font-size': 3.79rem),
+    '._h1': ('font-size': 3.79rem),
   ),
-  large: (
-    'h1': ('font-size': 5.025rem),
-    'h2': ('font-size': 3.79rem),
+  xlarge: (
+    '._h1': ('font-size': 5.025rem),
+    '._h2': ('font-size': 3.79rem),
   ),
 );

@@ -4,4 +4,4 @@ $fonts-map: (
 "plak": $plak-font-map
 );
 
-@include create-extension-styles($fonts-map);
+@include format-extension-map($fonts-map);

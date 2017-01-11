@@ -3,33 +3,33 @@
 // ---------------
 
 // Global sizing
-$global-width: rem-calc(1200) !default;
+$cdr-global-width: rem-calc(1200) !default;
 
 // Global spacing
-$global-margin: 1rem !default;
-$global-padding: 1rem !default;
-$body-margin: 0 !default;
-$body-padding: 0 !default;
+$cdr-global-margin: 1rem !default;
+$cdr-global-padding: 1rem !default;
+$cdr-body-margin: 0 !default;
+$cdr-body-padding: 0 !default;
 
-$global-radius: 0 !default;
+$cdr-global-radius: 0 !default;
 
 // Body color definitions
-$body-background: #fff !default;
-$body-font-color: #222 !default;
+$cdr-body-background: #fff !default;
+$cdr-body-font-color: #222 !default;
 
 // Global Typography
 // -----------------
-$global-lineheight: 1.5 !default;
-$body-font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
-$body-font-size: 1.6rem;
-$body-antialiased: true !default;
-$global-weight-normal: normal !default;
-$global-weight-bold: bold !default;
+$cdr-global-lineheight: 1.5 !default;
+$cdr-body-font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$cdr-body-font-size: 1.6rem;
+$cdr-body-antialiased: true !default;
+$cdr-global-weight-normal: normal !default;
+$cdr-global-weight-bold: bold !default;
 
 
 html {
   box-sizing: border-box;
-  font-size: $global-font-size;
+  font-size: $cdr-global-font-size;
 }
 
 // Set box-sizing globally to handle padding and border widths
@@ -41,16 +41,16 @@ html {
 
 // Default body styles
 body {
-  margin: $body-margin;
-  padding: $body-padding;
-  background: $body-background;
-  font-family: $body-font-family;
-  font-size: $body-font-size;
-  font-weight: $global-weight-normal;
-  line-height: $global-lineheight;
-  color: $body-font-color;
+  margin: $cdr-body-margin;
+  padding: $cdr-body-padding;
+  background: $cdr-body-background;
+  font-family: $cdr-body-font-family;
+  font-size: $cdr-body-font-size;
+  font-weight: $cdr-global-weight-normal;
+  line-height: $cdr-global-lineheight;
+  color: $cdr-body-font-color;
 
-  @if ($body-antialiased) {
+  @if ($cdr-body-antialiased) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -71,13 +71,13 @@ img {
 textarea {
   height: auto;
   min-height: 50px;
-  border-radius: $global-radius;
+  border-radius: $cdr-global-radius;
 }
 
 // Make select elements are 100% width by default
 select {
   width: 100%;
-  border-radius: $global-radius;
+  border-radius: $cdr-global-radius;
 }
 
 // Reset <button> styles created by most browsers
@@ -85,7 +85,7 @@ button {
   padding: 0;
   appearance: none;
   border: 0;
-  border-radius: $global-radius;
+  border-radius: $cdr-global-radius;
   background: transparent;
   line-height: 1;
 }

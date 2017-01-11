@@ -34,7 +34,7 @@ $mq-responsive: true !default;
 ///
 /// @type Map
 /// @link https://github.com/mcaskill/sass-mq#seeing-the-currently-active-breakpoint Full documentation and examples
-$mq-breakpoints: (
+$cdr-mq-breakpoints: (
   small: 0px,
   medium: 768px,
   large: 992px,
@@ -44,18 +44,18 @@ $mq-breakpoints: (
 
 $zero-breakpoint: small !default;
 
-$breakpoints-keys: map-to-list($mq-breakpoints, 'keys');
+$breakpoints-keys: map-to-list($cdr-mq-breakpoints, 'keys');
 
-@if nth(map-values($mq-breakpoints), 1) != 0 {
-  @error 'Your smallest breakpoint (defined in $mq-breakpoints) must be set to "0".';
+@if nth(map-values($cdr-mq-breakpoints), 1) != 0 {
+  @error 'Your smallest breakpoint (defined in $cdr-mq-breakpoints) must be set to "0".';
 }
 @else {
-  $zero-breakpoint: nth(map-keys($mq-breakpoints), 1);
+  $zero-breakpoint: nth(map-keys($cdr-mq-breakpoints), 1);
 }
 
 /// Static breakpoint (for fixed-sized layouts)
 ///
-/// Define the breakpoint from $mq-breakpoints that should
+/// Define the breakpoint from $cdr-mq-breakpoints that should
 /// be used as the target length for the fixed-sized layout
 /// (i.e. when $mq-responsive is set to 'false') in a old-ie.scss
 ///
@@ -112,16 +112,16 @@ $mq-media-type: all !default;
 
 /// Get a breakpoint's length
 ///
-/// @param {String} $name - Name of the breakpoint. One of $mq-breakpoints
+/// @param {String} $name - Name of the breakpoint. One of $cdr-mq-breakpoints
 ///
 /// @example scss
 ///  $tablet-width: mq-get-breakpoint-length(tablet);
 ///  @media (min-width: mq-get-breakpoint-length(desktop)) {}
 ///
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 ///
 /// @returns {Number} Value in pixels
-@function mq-get-breakpoint-length($name, $breakpoints: $mq-breakpoints) {
+@function mq-get-breakpoint-length($name, $breakpoints: $cdr-mq-breakpoints) {
     @if map-has-key($breakpoints, $name) {
         @return map-get($breakpoints, $name);
     } @else {
@@ -133,18 +133,18 @@ $mq-media-type: all !default;
 ///
 /// @param {String | Number} $value - Length of the breakpoint. One of $breakpoints
 /// @param {Boolean} $exclusive (false) - Should the value be an exclusive boundary
-/// @param {Map} $breakpoints ($mq-breakpoints) - Map of breakpoints
+/// @param {Map} $breakpoints ($cdr-mq-breakpoints) - Map of breakpoints
 ///
 /// @example scss
 ///  @media (min-width: mq-parse-breakpoint(380px)) {}
 ///  @media (min-width: mq-parse-breakpoint(desktop)) {}
 ///
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 /// @requires {function} mq-px2em
 /// @requires {function} mq-get-breakpoint-length
 ///
 /// @returns {Number} Value in pixels
-@function mq-parse-breakpoint($value, $exclusive: false, $breakpoints: $mq-breakpoints) {
+@function mq-parse-breakpoint($value, $exclusive: false, $breakpoints: $cdr-mq-breakpoints) {
     @if type-of($value) == number {
         @return mq-px2em($value);
     } @else {
@@ -186,19 +186,19 @@ $mq-media-type: all !default;
 ///
 /// Computes a media query based on a list of conditions.
 ///
-/// @param {String | Boolean} $from (false) - One of $mq-breakpoints
-/// @param {String | Boolean} $until (false) - One of $mq-breakpoints
+/// @param {String | Boolean} $from (false) - One of $cdr-mq-breakpoints
+/// @param {String | Boolean} $until (false) - One of $cdr-mq-breakpoints
 /// @param {String | Boolean} $and (false) - Additional media query parameters
 /// @param {String | Boolean} $or (false) - Alternative media query parameters
 /// @param {String} $media-feature (width) - Media feature: width or height of the output device's rendering surface
 /// @param {String} $media-type ($mq-media-type) - Media type: screen, print…
 ///
 /// @ignore Undocumented API, for advanced use only:
-/// @ignore @param {Map} $breakpoints ($mq-breakpoints)
+/// @ignore @param {Map} $breakpoints ($cdr-mq-breakpoints)
 /// @ignore @param {String} $static-breakpoint ($mq-static-breakpoint)
 ///
 /// @requires {Variable} $mq-media-type
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 /// @requires {Variable} $mq-static-breakpoint
 /// @requires {function} mq-stringify
 /// @requires {function} mq-parse-breakpoint
@@ -226,7 +226,7 @@ $mq-media-type: all !default;
     $or: false,
     $media-feature: width,
     $media-type: $mq-media-type,
-    $breakpoints: $mq-breakpoints,
+    $breakpoints: $cdr-mq-breakpoints,
     $static-breakpoint: $mq-static-breakpoint
 ) {
     $min-value: 0;
@@ -277,22 +277,22 @@ $mq-media-type: all !default;
 /// Generates a media query bock, based on a list of conditions, around a set
 /// of nested CSS statements.
 ///
-/// @param {String | Boolean} $from (false) - One of $mq-breakpoints
-/// @param {String | Boolean} $until (false) - One of $mq-breakpoints
+/// @param {String | Boolean} $from (false) - One of $cdr-mq-breakpoints
+/// @param {String | Boolean} $until (false) - One of $cdr-mq-breakpoints
 /// @param {String | Boolean} $and (false) - Additional media query parameters
 /// @param {String | Boolean} $or (false) - Alternative media query parameters
 /// @param {String} $media-feature (width) - Media feature: width or height of the output device's rendering surface
 /// @param {String} $media-type ($mq-media-type) - Media type: screen, print…
 ///
 /// @ignore Undocumented API, for advanced use only:
-/// @ignore @param {Map} $breakpoints ($mq-breakpoints)
+/// @ignore @param {Map} $breakpoints ($cdr-mq-breakpoints)
 /// @ignore @param {Boolean} $responsive ($mq-responsive)
 /// @ignore @param {String} $static-breakpoint ($mq-static-breakpoint)
 ///
 /// @content styling rules, wrapped into a @media query when $responsive is true
 ///
 /// @requires {Variable} $mq-media-type
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 /// @requires {Variable} $mq-static-breakpoint
 /// @requires {function} mq
 /// @requires {function} mq-parse-breakpoint
@@ -333,7 +333,7 @@ $mq-media-type: all !default;
     $or: false,
     $media-feature: width,
     $media-type: $mq-media-type,
-    $breakpoints: $mq-breakpoints,
+    $breakpoints: $cdr-mq-breakpoints,
     $responsive: $mq-responsive,
     $static-breakpoint: $mq-static-breakpoint
 ) {
@@ -384,23 +384,23 @@ $mq-media-type: all !default;
 /// @param {String} $name - Name of the breakpoint
 /// @param {Number} $length - Length of the breakpoint
 ///
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 ///
 /// @example scss
 ///  @include mq-add-breakpoint(tvscreen, 1920px);
 ///  @include mq(tvscreen) {}
 @mixin mq-add-breakpoint($name, $length) {
     $new-breakpoint: ($name: $length);
-    $mq-breakpoints: map-merge($mq-breakpoints, $new-breakpoint) !global;
+    $cdr-mq-breakpoints: map-merge($cdr-mq-breakpoints, $new-breakpoint) !global;
 }
 
 /// Show the active breakpoint in the top right corner of the viewport
 /// @link https://github.com/mcaskill/sass-mq#seeing-the-currently-active-breakpoint
 ///
 /// @param {List} $show-breakpoints ($mq-show-breakpoints) - List of breakpoints to show in the top right corner
-/// @param {Map} $breakpoints ($mq-breakpoints) - Breakpoint names and sizes
+/// @param {Map} $breakpoints ($cdr-mq-breakpoints) - Breakpoint names and sizes
 ///
-/// @requires {Variable} $mq-breakpoints
+/// @requires {Variable} $cdr-mq-breakpoints
 /// @requires {Variable} $mq-show-breakpoints
 ///
 /// @example scss
@@ -409,7 +409,7 @@ $mq-media-type: all !default;
 ///
 ///  // Show breakpoints using custom settings
 ///  @include mq-show-breakpoints((L, XL), (S: 300px, L: 800px, XL: 1200px));
-@mixin mq-show-breakpoints($show-breakpoints: $mq-show-breakpoints, $breakpoints: $mq-breakpoints) {
+@mixin mq-show-breakpoints($show-breakpoints: $mq-show-breakpoints, $breakpoints: $cdr-mq-breakpoints) {
     body:before {
         background-color: #FCF8E3;
         border-bottom: 1px solid #FBEED5;

@@ -1,7 +1,7 @@
 // Mixin for parsing maps returned from theo and creating styles encoded within
 // @param {Map} $variantMap - map created by theo
 // @return {scss} ouputs the css defined in the map
-@mixin create-extension-styles($variantMap) {
+@mixin format-extension-map($variantMap) {
   @each $variantName, $map in $variantMap {
     // unique placeholder in case of no defined class
     // TODO/QUESTION: better idea?
@@ -17,7 +17,7 @@
 
     // prepopulate map with breakpoint values
     $extension-style-map: ();
-    @each $key, $value in $mq-breakpoints {
+    @each $key, $value in $cdr-mq-breakpoints {
       $extension-style-map: map-set($extension-style-map, #{$key}, ());
     }
 
