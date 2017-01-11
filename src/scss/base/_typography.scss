@@ -11,7 +11,7 @@ $cdr-header-color: inherit !default;
 $cdr-header-line-height: 1.333 !default;
 $cdr-header-margin-bottom: 1.2rem !default;
 $cdr-header-margin-top: 0 !default;
-$header-text-rendering: optimizeLegibility !default;
+$cdr-header-text-rendering: optimizeLegibility !default;
 
 // Styles for headings at various screen sizes.
 // Each key is a breakpoint, and each value is a map of heading styles.
@@ -19,7 +19,7 @@ $header-text-rendering: optimizeLegibility !default;
 $cdr-header-styles: (
   small: (
     color: $cdr-header-color,
-    text-rendering: $header-text-rendering,
+    text-rendering: $cdr-header-text-rendering,
     margin-bottom: $cdr-header-margin-bottom,
     margin-top: $cdr-header-margin-top,
     '.-core': (

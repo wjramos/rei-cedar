@@ -50,7 +50,7 @@ $cdr-header-color: inherit;
 $cdr-header-line-height: 1.333;
 $cdr-header-margin-bottom: 1.2rem;
 $cdr-header-margin-top: 0;
-$header-text-rendering: optimizeLegibility;
+$cdr-header-text-rendering: optimizeLegibility;
 
 $cdr-header-styles: (
   small: (
@@ -58,7 +58,7 @@ $cdr-header-styles: (
     font-style: $cdr-header-font-style,
     font-weight: $cdr-header-font-weight,
     color: $cdr-header-color,
-    text-rendering: $header-text-rendering,
+    text-rendering: $cdr-header-text-rendering,
     margin-bottom: $cdr-header-margin-bottom,
     margin-top: $cdr-header-margin-top,
     line-height: $cdr-header-line-height,
