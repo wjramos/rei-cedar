@@ -19,7 +19,7 @@ $body-background: #fff;
 $body-font-color: #222;
 $global-font-size: 62.5%;
 $global-lineheight: 1.5;
-$body-font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$body-font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 $body-font-size: 1.6rem;
 $body-antialiased: true;
 $global-weight-normal: normal;
@@ -43,7 +43,8 @@ $mq-breakpoints: (
 // 3. Base Typography
 // ------------------
 $cdr-header-class: 'header-core';
-$cdr-header-font-family: HCo Sentinel, $body-font-family;
+$cdr-header-font-fallback: quote($body-font-family);
+$cdr-header-font-family: HCo Sentinel, $cdr-header-font-fallback;
 $cdr-header-font-weight: 600;
 $cdr-header-font-style: normal; // e.g. italic
 $cdr-header-color: inherit;

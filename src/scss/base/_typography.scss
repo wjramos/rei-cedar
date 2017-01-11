@@ -4,7 +4,8 @@
 // Headers
 // -------
 $cdr-header-class: 'header';
-$cdr-header-font-family: HCo Sentinel, $body-font-family !default;
+$cdr-header-font-fallback: quote($body-font-family) !default;
+$cdr-header-font-family: HCo Sentinel, $cdr-header-font-fallback !default;
 $cdr-header-font-weight: 600 !default;
 $cdr-header-font-style: normal !default; // e.g. italic
 $cdr-header-color: inherit !default;

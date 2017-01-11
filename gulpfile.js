@@ -285,10 +285,10 @@ const cleanOutput = ( output ) =>
 theo.registerFormat( 'cedar.scss', ( json, options ) => {
     options = _.defaults( {}, options, {
         nameSuffix: '-map'
-    } )
+    } );
     let items = Object.keys( json.props ).map( prop =>
         `"${json.props[prop].name}": (${json.props[prop].value})`
-    ).join( ',\n  ' )
+    ).join( ',\n  ' );
     let basename = path.basename(
         options.path, path.extname( options.path )
     ).replace( /\..*/g, '' );
