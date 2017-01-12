@@ -47,7 +47,6 @@ var bourbon = require( 'node-bourbon' );
 var browserSync = require( 'browser-sync' ).create();
 var theo = require( 'theo' );
 var _ = require( 'lodash' );
-var cssnano = require( 'gulp-cssnano' );
 
 
 //       /$$$$$$                       /$$$$$$  /$$
@@ -260,6 +259,7 @@ gulp.task( 'css:build', [ 'css:clean' ], () => {
         .pipe( gulp.dest( PATHS.DIST ) );
 } );
 
+//TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 // SCSS compiling
 // TODO: make it work with correct paths after PoC
 gulp.task( 'sass', function () {
@@ -272,7 +272,7 @@ gulp.task( 'sass', function () {
             browsers: [ 'last 2 versions' ]
         } ) ] ) )
         .pipe( sourcemaps.write() )
-        // .pipe( cssnano() )
+        // .pipe( minifyCss() )
         .pipe( gulp.dest( './scss_out' ) );
 } );
 // Theo stuff
@@ -322,7 +322,7 @@ gulp.task( 'theo', function () {
         } ) )
         .pipe( gulp.dest( './src/scss/design/' ) );
 } );
-
+//TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 // minify the css
 gulp.task( 'css:minify', [ 'css:build' ], () =>
